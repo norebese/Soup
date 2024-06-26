@@ -19,7 +19,7 @@ const Login = () =>{
         }));
       };
 
-      const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.id || !formData.password) {
             alert('아이디 또는 비밀번호를 입력해주세요');

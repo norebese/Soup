@@ -14,12 +14,12 @@ export const loginService = async (id, password) => {
   }
 };
 
-export const registService = async (id, password) => {
+export const registService = async (formData) => {
   try {
-    const response = await axios.post(`${API_URL}/regist`, { id, password });
+    const response = await axios.post(`${API_URL}/regist`, { formData });
     return response.data;
   } catch (error) {
-    console.log(`(authService.js) id: ${id} password: ${password}`)
+    console.log(formData)
     console.error('Registration error:', error);
     throw error;
   }

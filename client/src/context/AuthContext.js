@@ -19,12 +19,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const regist = async (id, password) => {
+  const regist = async (formData) => {
     try {
-      const response = await registService(id, password);
-      setUser(response.user);
+      const response = await registService(formData);
+      console.log(response)
+      // setUser(response.user);
     } catch (error) {
-      console.log(`(AuthContext.js) id: ${id} password: ${password}`)
+      console.log(formData)
       console.error('Registration failed:', error);
       throw error;
     }
