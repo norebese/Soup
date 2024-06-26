@@ -1,5 +1,6 @@
 import styles from './regist.module.css';
 import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
 function Regist() {
   const [formData, setFormData] = useState({
