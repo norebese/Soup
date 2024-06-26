@@ -26,11 +26,26 @@ function Regist() {
     }));
   };
 
+  function alertmsg(key) {
+    const translations = {
+      Corporation_Number: '기업 코드',
+      team: '부서',
+      position: '직급',
+      id: '아이디',
+      password: '비밀번호',
+      username: '이름',
+      gender: '성별',
+      date: '날짜',
+      email: '이메일'
+    };
+    return translations[key] || key;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     for (let key in formData) {
       if (formData[key] === '') {
-        alert(`Please fill out the ${key.replace('_', ' ')} field.`);
+        alert(`${alertmsg(key)} 항목을 채워주세요.`);
         return;
       }
     }
