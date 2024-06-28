@@ -1,31 +1,32 @@
-
+import styles from './regist.module.css';
+import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 function ManagerRegist() {
     const [formData, setFormData] = useState({
-      companyId: '',
       CEO: '',
+      EID :'',
       addressLine1: '',
       addressLine2: '',
       userId: '',
       userpw: '',
       managerName: '',
       companyName: '',
-      phoneNumber: '',
-      //email: ''
+      email: ''
     });
 
     function alertmsg(key) {
         const translations = {
-          companyId: '기업 코드',
           CEO: '대표자',
+          EID :'사업자등록번호',
           addressLine1: '도로명 주소',
           addressLine2: '상세 주소',
           userId: '아이디',
           userpw: '비밀번호',
           managerName: '관리자 이름',
           companyName: '상호',
-          phoneNumber: '전화번호',
-          //email: '이메일'
+          email: '이메일'
         };
         return translations[key] || key;
       }

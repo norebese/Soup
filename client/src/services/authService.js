@@ -14,9 +14,20 @@ export const loginService = async (id, password) => {
   }
 };
 
-export const registService = async (formData) => {
+export const userRegistService = async (formData) => {
   try {
-    const response = await axios.post(`${API_URL}/regist`, { formData });
+    const response = await axios.post(`${API_URL}/auth/signup`, { formData });
+    return response.data;
+  } catch (error) {
+    console.log(formData)
+    console.error('Registration error:', error);
+    throw error;
+  }
+};
+
+export const managerRegistService = async (formData) => {
+  try {
+    const response = await axios.post(`${API_URL}/auth/adminsighup`, { formData });
     return response.data;
   } catch (error) {
     console.log(formData)
