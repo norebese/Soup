@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
-import { loginService, registService } from '../services/authService';
+import { loginService, userRegistService, managerRegistService } from '../services/authService';
 
 // AuthContext 생성
 const AuthContext = createContext();
@@ -19,9 +19,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const regist = async (formData) => {
+  const userRegist = async (formData) => {
     try {
-      const response = await registService(formData);
+      const response = await userRegistService(formData);
+      console.log(response)
+      // setUser(response.user);
+    } catch (error) {
+      console.log(formData)
+      console.error('Registration failed:', error);
+      throw error;
+    }
+  };
+
+  const managerRegist = async (formData) => {
+    try {
+      const response = await managerRegistService(formData);
       console.log(response)
       // setUser(response.user);
     } catch (error) {
@@ -36,7 +48,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, regist }}>
+    <AuthContext.Provider value={{ user, login, logout, userRegist , managerRegist }}>
       {children}
     </AuthContext.Provider>
   );

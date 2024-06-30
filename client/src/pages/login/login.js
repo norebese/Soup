@@ -45,6 +45,7 @@ const Login = () =>{
                 <input onChange={handleChange} autoComplete="username" name='id' type="text" placeholder="아이디" id={styles.userid} />
                 <input onChange={handleChange} autoComplete="current-password" name='password' className="password" type="password" placeholder="비밀번호" id={styles.userpw}/>
                 <button className={`${styles.button_type_B} ${styles.login}`}>로그인</button>
+                <button className={`${styles.button_type_A} ${styles.regist}`}>회원 가입</button>
             </form>
         </div>
     </div>

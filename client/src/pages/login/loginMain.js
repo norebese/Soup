@@ -17,7 +17,7 @@ const LoginMain = () =>{
             <img src={icon} alt="logo" />
             </div>
             <div className={styles.text}>슬로건 한 줄</div>
-            <button onClick={() => handleNavigate('/regist')} className={`${styles.button_type_A} ${styles.regist}`}>회원 가입</button>
+            <button onClick={() => handleNavigate('/auth/signup')} className={`${styles.button_type_A} ${styles.regist}`}>회원 가입</button>
             <button onClick={() => handleNavigate('/login')} className={`${styles.button_type_B} ${styles.login}`}>로그인</button>
         </div>
       </div>
