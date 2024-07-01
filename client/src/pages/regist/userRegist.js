@@ -76,8 +76,12 @@ function UserRegist() {
               <input onChange={handleChange} name='position' type="text" placeholder="직급" id={styles.position} />
             </div>
             <div className={styles.section}>
-              <input onChange={handleChange} name='id' type="text" placeholder="아이디" id={styles.userid} />
+              <div className="btn_container">
+                <input onChange={handleChange} name='id' type="text" placeholder="아이디" id={styles.userid} />
+                <button className="button_type_B check_btn">중복 확인</button>
+              </div>
               <input onChange={handleChange} name='password' className={styles.password} type="password" placeholder="비밀번호" id={styles.userpw} />
+              <input onChange={handleChange} name='password' className={styles.password} type="password" placeholder="비밀번호 확인" id={styles.userpw} />
             </div>
             <div className={styles.section}>
               <input onChange={handleChange} name='username' type="text" placeholder="이름" id={styles.username} />

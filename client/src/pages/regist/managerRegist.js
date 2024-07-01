@@ -39,15 +39,22 @@ function ManagerRegist() {
         <div className="container">
           <form name="regist">
             <div className="section">
-              <input type="text" placeholder="기업 코드" id="companyId" />
+            <div className="btn_container">
+                <input type="text" placeholder="기업코드" id="companyId"/>
+                <button className="button_type_B check_btn">중복 확인</button>
+              </div>
               <input type="text" placeholder="상호" id="companyName" />
               <input type="text" placeholder="대표자명" id="CEO" />
               <input type="text" placeholder="도로명주소" id="addressLine1" />
               <input type="text" placeholder="상세주소" id="addressLine2" />
             </div>
             <div className="section">
-              <input type="text" placeholder="아이디" id="userId" />
+              <div className="btn_container">
+                <input type="text" placeholder="아이디" id="userid"/>
+                <button className="button_type_B check_btn">중복 확인</button>
+              </div>
               <input className="password" type="password" placeholder="비밀번호" id="userpw" />
+              <input className="password" type="password" placeholder="비밀번호 확인" id="userpw" />
             </div>
             <div className="section">
               <input type="text" placeholder="관리자 이름" id="managerName" />
