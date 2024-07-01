@@ -36,10 +36,10 @@
     width: 90%;
     height: 100%;
 }
-img{width: 80%;}
+.logo_img{width: 80%;}
 
 /* 버튼 설정 */
-button {
+.btn_style {
     cursor: pointer;
     border-radius: 14px;
     padding: 10px 0;
@@ -56,7 +56,7 @@ button {
 /*어두운 버튼*/
 .button_type_B{background-color:#94B489;}
 
-form{
+.form_style{
     justify-content: center;
     align-items: center;
 
@@ -65,7 +65,7 @@ form{
     flex-direction: column;
 }
 /*input*/
-input {
+.input_style {
     cursor: pointer;
     box-sizing:border-box;
     border-radius: 14px;
