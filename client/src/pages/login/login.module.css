@@ -27,7 +27,7 @@
     font-size: 0.9rem;
     font-weight: bold;
 }
-.container{
+.div_container{
     display: flex;
     justify-content: center;
     align-items: center;
