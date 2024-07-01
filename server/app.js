@@ -2,7 +2,7 @@ import e from 'express'
 import cors from 'cors'
 
 import { config } from './config/config.js'
-import { connectDatabases } from './config/database.js'
+// import { connectDatabases } from './config/database.js'
 
 // import mainRouter from './router/main.js'
 import authRouter from './router/auth.js'
@@ -23,16 +23,18 @@ app.use('/auth', authRouter)
 
 
 // 404 Not Found 처리 미들웨어
-app.use('/', (req, res, next) => {
-    res.status(404).send('Not Found');
-});
+// app.use('/', (req, res, next) => {
+//     res.status(404).send('Not Found');
+// });
 
-
-connectDatabases().then(() =>{
-    app.listen(config.server.hostport, ()=>{
-        console.log(`Server is running ${config.server.hostport}`)
-    })
-}).catch(error => {
-    console.error('Failed to start the server:', error);
-});
+app.listen(config.server.hostport, ()=>{
+    console.log(`Server is running ${config.server.hostport}`)
+})
+// connectDatabases().then(() =>{
+//     app.listen(config.server.hostport, ()=>{
+//         console.log(`Server is running ${config.server.hostport}`)
+//     })
+// }).catch(error => {
+//     console.error('Failed to start the server:', error);
+// });
 
