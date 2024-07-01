@@ -35,8 +35,8 @@ const Login = () =>{
 
 
     return (
-    <div className={styles.body}>
-        <div className={styles.container}>
+    <div className={styles.body_container}>
+        <div className={styles.div_container}>
             <div className={styles.logo}>
             <img src={icon} alt="logo" />
             </div>
