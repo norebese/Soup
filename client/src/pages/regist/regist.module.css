@@ -5,7 +5,6 @@ body{
 /*여기부터*/
 .body {
     background-color: #FFFFFF;
-    font-size: 1.1rem;
     color: #383838;
     margin: 0;
     width: 100vw;
@@ -28,7 +27,7 @@ body{
 }
 .text{
     margin: 10px 0 30px;
-    font-size: 0.9rem;
+    font-size: 0.9vw;
     font-weight: bold;
 }
 .container{
@@ -99,6 +98,24 @@ form{
     display: flex;
     flex-direction: column;
 }
+
+.btn_container{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+.btn_container > input{
+    cursor: pointer;
+    box-sizing:border-box;
+    border-radius: 14px;
+    padding: 10px;
+    margin: 8px 0;
+    width: 68%;
+    height: 10vw;
+}
+.check_btn{
+    width: 30%;
+}
 /*input*/
 input {
     cursor: pointer;
@@ -107,7 +124,7 @@ input {
     padding: 10px;
     font-size: 1.1rem;
     width: 90%;
-    height: 35%;
+    height: 10vw;
     border: none;
     margin: 8px 0;
     background-color: #EDEDED;
