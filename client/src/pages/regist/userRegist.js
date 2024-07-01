@@ -64,11 +64,11 @@ function UserRegist() {
   };
 
     return (
-      <div className={styles.body}>
+      <div className={styles.body_container}>
         <div className={styles.nav}>
           <button onClick={() => handleNavigate('/')} className={styles.back_btn}>←</button>
         </div>
-        <div className={styles.container}>
+        <div className={styles.div_container}>
           <form onSubmit={handleSubmit} name="regist">
             <div className={styles.section}>
               <input onChange={handleChange} name='Corporation_Number' type="text" placeholder="기업 코드" id={styles.Corporation_Number} />

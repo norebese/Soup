@@ -1,12 +1,10 @@
-body{
-    margin: 0;
-}
+
 /* 스크롤바 삭제 */
 .scroll::-webkit-scrollbar {
     display: none;
   }
 /*여기부터*/
-.body {
+.body_container {
     box-sizing: border-box;
     background-color: #ffffff;
     font-size: 1.1rem;

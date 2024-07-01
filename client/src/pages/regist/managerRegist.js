@@ -32,11 +32,11 @@ function ManagerRegist() {
       }
 
     return (
-        <div className="body">
+        <div className="body_container">
         <div className="nav">
           <button className="back_btn">←</button>
         </div>
-        <div className="container">
+        <div className="div_container">
           <form name="regist">
             <div className="section">
             <div className="btn_container">
@@ -47,7 +47,7 @@ function ManagerRegist() {
               <input type="text" placeholder="대표자명" id="CEO" />
               <input type="text" placeholder="도로명주소" id="addressLine1" />
               <input type="text" placeholder="상세주소" id="addressLine2" />
-            </div>
+            </div> 
             <div className="section">
               <div className="btn_container">
                 <input type="text" placeholder="아이디" id="userid"/>

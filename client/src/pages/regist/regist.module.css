@@ -1,9 +1,5 @@
-body{
-    margin: 0;
-}
-
 /*여기부터*/
-.body {
+.body_container{
     background-color: #FFFFFF;
     color: #383838;
     margin: 0;
