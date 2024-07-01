@@ -58,10 +58,10 @@
     margin: 8px 0;
 }
 
-img{width: 80%;}
+.logo_img{width: 80%;}
 
 /* 버튼 설정 */
-button {
+.btn_style {
     cursor: pointer;
     border-radius: 14px;
     padding: 10px 0;
@@ -86,7 +86,7 @@ button {
     margin-left: 25px;
     }
 
-form{
+.form_style{
     justify-content: center;
     align-items: center;
 

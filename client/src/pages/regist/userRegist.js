@@ -72,16 +72,16 @@ function UserRegist() {
           <form onSubmit={handleSubmit} name="regist">
             <div className={styles.section}>
               <input onChange={handleChange} name='Corporation_Number' type="text" placeholder="기업 코드" id={styles.Corporation_Number} />
-              <input onChange={handleChange} name='team' type="text" placeholder="부서" id={styles.team} />
-              <input onChange={handleChange} name='position' type="text" placeholder="직급" id={styles.position} />
+              <input className="input_style" onChange={handleChange} name='team' type="text" placeholder="부서" id={styles.team} />
+              <input className="input_style" onChange={handleChange} name='position' type="text" placeholder="직급" id={styles.position} />
             </div>
             <div className={styles.section}>
               <div className="btn_container">
-                <input onChange={handleChange} name='id' type="text" placeholder="아이디" id={styles.userid} />
-                <button className="button_type_B check_btn">중복 확인</button>
+                <input className="input_style" onChange={handleChange} name='id' type="text" placeholder="아이디" id={styles.userid} />
+                <button className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`}>중복 확인</button>
               </div>
-              <input onChange={handleChange} name='password' className={styles.password} type="password" placeholder="비밀번호" id={styles.userpw} />
-              <input onChange={handleChange} name='password' className={styles.password} type="password" placeholder="비밀번호 확인" id={styles.userpw} />
+              <input onChange={handleChange} name='password' className={`${styles.password} ${styles.input_style}`} type="password" placeholder="비밀번호" id={styles.userpw} />
+              <input onChange={handleChange} name='password' className={`${styles.password} ${styles.input_style}`} type="password" placeholder="비밀번호 확인" id={styles.userpw} />
             </div>
             <div className={styles.section}>
               <input onChange={handleChange} name='username' type="text" placeholder="이름" id={styles.username} />
@@ -95,9 +95,9 @@ function UserRegist() {
                   <input onChange={handleChange} value="female" type="radio" name="gender" id={styles.female} />
                 </div>
               </div>
-              <input onChange={handleChange} name='date' type="date" id={styles.date} min="1940-01-01" max="2024-12-31" />
+              <input className="input_style" onChange={handleChange} name='date' type="date" id={styles.date} min="1940-01-01" max="2024-12-31" />
             </div>
-            <button className={`${styles.button_type_B} ${styles.regist}`}>회원가입</button>
+            <button className={`${styles.button_type_B} ${styles.regist} ${styles.btn_style}`}>회원가입</button>
           </form>
         </div>
       </div>
