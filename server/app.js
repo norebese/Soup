@@ -5,7 +5,7 @@ import { config } from './config/config.js'
 // import { connectDatabases } from './config/database.js'
 
 // import mainRouter from './router/main.js'
-import authRouter from './router/auth.js'
+import authRouter from './router/auth.js';
 // import adminRouter from './router/admin.js'
 
 const app = e();

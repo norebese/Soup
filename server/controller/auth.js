@@ -1,45 +1,19 @@
-import * as CompanyData from '../data/Company.js'
-// import * as UserData from '../data/User'
+import * as CompanyData from '../data/Company.js';
+import * as AdminData from '../data/Admin.js';
+import * as UserData from '../data/User.js';
 
+// =================================
+// ========== 관리자 회원가입 ==========
+// =================================
 
-// search CompanyName
-// export const SearchCompanyName = async (req, res)=>{
-//   try{
-//     const companyName = req.body.companyName;
-//     const data = await CompanyData.getByCompanyName(companyName);
-
-//     if(!data) return res.status(404)
-
-//     res.status(200).json(data)
-//   }catch(err){
-//     console.log(`Error: ${err}`)
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// };
-
-// search CompanyId
-// export const SearchCompanyId = async (req, res)=>{
-//   try{
-//     const companyId = req.body.companyId;
-//     const data = await CompanyData.gethByCompanyId(companyId);
-
-//     if(!data) res.status(404)
-
-//     res.status(200).json(data)
-//   }catch(err){
-//     console.log(`Error: ${err}`)
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// }
-
-// check CompanyNum
+// 사업자 등록 여부 체크
 export const CheckCompanyNum = async (req, res)=>{
+  console.log('사업자 등록 여부 체크 시작')
   try{
-    const companyNum = req.body.companyNum;
+    const companyNum = req.query.num;
     const data = await CompanyData.getByCompanyNum(companyNum);
 
     if(!data) res.status(404)
-    console.log('compnayNum')
     res.status(200).json(data)
   }catch(err){
     console.log(`Error: ${err}`)
@@ -47,54 +21,51 @@ export const CheckCompanyNum = async (req, res)=>{
   }
 }
 
-// check UserId
-// export const CheckUserId = async (req, res)=>{
-//   try{
-//     const userId = req.body.userId;
-//     const data = await UserData.getByUserId(userId)
+// 아이디(이메일) 중복체크 
+export const CheckAdminId = async (req, res)=>{
+  const AdminId = req.query.userId
+  
+  const data = await AdminData.getById(AdminId)
+}
 
-//     if(!data) res.status(404)
+// 관리자 회원가입
+export const addAdmin = async (req, res)=>{
+  const Admin = req.body
+  
+  const data = await AdminData.Create(Admin)
+}
 
-//     res.status(200).json(data)
-//   }catch(err){
-//     console.log(`Error: ${err}`)
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// }
+// =================================
+// ========== 유저  회원가입 ==========
+// =================================
 
-// SignUp
-// const SignUp = (req, res)=>{
-//   try{
+// 기업 코드 확인
+export const CheckCompanyId = async (req, res)=>{
+  const CompnayId = req.query.CompnayId
+}
 
-//   }catch(err){
+// 아이디(이메일) 중복체크
+export const CheckUserId = async (req, res)=>{
+  const UserId = req.query.userId
 
-//   }
-// }
+  const data = await UserData.getById(UserId)
 
-// SignIn
-// const SignIn = (req, res)=>{
-//   try{
+}
 
-//   }catch(err){
-    
-//   }
-// }
+// 유저 회원가입
+export const addUser = async (req, res)=>{
+  const User = req.body
 
-// SignOut
-// const SignOut = (req, res)=>{
-//   try{
+  const data = await UserData.Create(User)
+}
 
-//   }catch(err){
-    
-//   }
-// }
 
-// MyPage
-// const MyPage = (req, res)=>{
-//   try{
+// ================================= 
+// ============  로그인  =============
+// =================================
 
-//   }catch(err){
-    
-//   }
-// }
-
+// 로그인
+export const SiginIn = async (req, res)=>{
+  const User = req.body
+  
+}

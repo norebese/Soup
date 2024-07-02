@@ -1,5 +1,5 @@
 import { config } from '../config/config.js';
-
+import axios from 'axios';
 
 // 사업자등록 상태 조회 
 export const getByCompanyNum = async (num)=>{
@@ -12,11 +12,12 @@ export const getByCompanyNum = async (num)=>{
         const response = await axios.post(`${base_url}${SERVICE}${TYPE}${APIKEY}`, {
             b_no: [num]
         });
-        if(response.data.status_code === 'OK' && response.data.data.length > 0) {
-            return response.data.data[0].tax_type;
+        // console.log(response.data)
+        const company = {
+            message:response.data.data[0].tax_type,
+            b_no:response.data.data[0].b_no
         }
-
-        return false;
+        return company
     } catch (error) {
         console.error("Error fetching data:", error);
         throw error;
