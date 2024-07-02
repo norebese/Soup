@@ -7,14 +7,29 @@ import {checkEID} from '../../services/authService'
 function ManagerRegist() {
     const [formData, setFormData] = useState({
       EID : '',
-      companyName: '',
+      CompanyName: '',
       CEO: '',
       userId: '',
       userpw: '',
-      managerName: '',
-      email: ''
+      ManagerName: '',
+      ManagerEmail: '',
+      CompanyTel: ''
     });
+
+    const [errors, setErrors] = useState({});
     const [eidState, setEid] = useState({ isValid: null, message: '' });
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+      setErrors({
+        ...errors,
+        [name]: '',
+      });
+    };
 
     const handleCheckEID = async (e) => {
       try {
@@ -46,7 +61,7 @@ function ManagerRegist() {
           <form name="regist" className={styles.form_style}>
             <div className={styles.section}>
             <div className={styles.btn_container}>
-                <input className={styles.input_style} type="text" placeholder="기업코드" id="companyId"/>
+                <input className={styles.input_style} name='EID' type="text" placeholder="기업코드" id="companyId"/>
                 <button type='button' onClick={handleCheckEID} className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`}>조회</button>
             </div>
               <input className={styles.input_style} type="text" placeholder="상호" id="companyName" />
