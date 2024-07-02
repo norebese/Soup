@@ -1,42 +1,47 @@
-// import { auth, database } from '../config/firebase';
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { ref, set } from "firebase/database";
+import mongoose from "mongoose";
 
-// export const registerUser = async (User)=>{
-//     const { 
-//       companyId, 
-//       companyTeam, 
-//       companyPosition, 
-//       userName, 
-//       Gender, 
-//       Birth, 
-//       userId, 
-//       userPwd 
-//     } = User.body;
+const AdminSchema = mongoose.Schema({
+  ManagerName:String,
+  managerEmail:String,
+  CompanyId:String,
+  userId:String,
+  userPw:String
+})
 
-//     try {
-//         const userCredential = await createUserWithEmailAndPassword(auth, userId, userPwd);
-//         const user = userCredential.user;
+const UserSchema = mongoose.Schema({
+  Code:String,
+  Team:String,
+  Position:String,
+  Name:String,
+  Birth:Date,
+  userId:String,
+  userPw:String
+})
 
-//         // Realtime Database에 사용자 정보 저장
-//         await set(ref(database, 'users/' + user.uid), {
-//             companyId: companyId,
-//             companyTeam: companyTeam,
-//             companyPosition: companyPosition,
-//             userName: userName,
-//             Gender: Gender,
-//             Birth: Birth,
-//             email: userId
-//         });
+const Admin = mongoose.model('Admin', AdminSchema)
+const User = mongoose.model('User', UserSchema)
 
-//         console.log('User registered successfully:', user);
-//         return true
-//     } catch (error) {
-//         console.error('Error registering user:', error);
-//         return false
-//     }
-// }
 
-// export const CheckUserId = async (UserId)=>{
-// 8
-// }
+export const getById = async (userId) => {
+  try {
+    // admin 컬렉션에서 userId 중복 여부 확인
+    const adminResult = await Admin.findOne({ userId });
+    if (adminResult) {
+      console.log("아이디 중복: Admin")
+      return { exists: true, collection: 'Admin' };
+    }
+
+    // user 컬렉션에서 userId 중복 여부 확인
+    const userResult = await User.findOne({ userId });
+    if (userResult) {
+      console.log("아이디 중복: User")
+      return { exists: true, collection: 'User' };
+    }
+
+    // 중복되지 않음
+    return { exists: false };
+  } catch (error) {
+    console.error(`Error checking userId: ${error.message}`);
+    throw new Error('Error checking userId');
+  }
+};

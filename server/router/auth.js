@@ -10,8 +10,6 @@ const router = e.Router();
 // 사업자 등록 여부 체크
 router.get('/checkcompanynum', AuthController.CheckCompanyNum)
 
-// 아이디(이메일) 중복체크
-router.get('/adminid', AuthController.CheckAdminId)
 
 // 관리자 회원가입
 router.post('/adminsignup', AuthController.addAdmin)
@@ -24,9 +22,6 @@ router.post('/adminsignup', AuthController.addAdmin)
 // 기업 코드 확인
 router.get('/checkcompanyid', AuthController.CheckCompanyId)
 
-// 아이디(이메일) 중복체크
-router.get('/userid', AuthController.CheckUserId)
-
 // 유저 회원가입
 router.post('/usersignup', AuthController.addUser)
 
@@ -38,5 +33,10 @@ router.post('/usersignup', AuthController.addUser)
 // 로그인
 router.post('/sginin', AuthController.SiginIn)
 
+
+// ================================= 
+// ========  아이디 중복 체크  =========
+// =================================
+router.get('/checkid', AuthController.CheckId)
 
 export default router
