@@ -19,7 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    /* width: 50%; */
     margin: 15px 0 10px;
 }
 .text{
@@ -51,7 +51,7 @@
     color:#383838;
 }
 /*밝은 버튼*/
-.button_type_A{background-color:#F2EEC5;}
+.button_type_A{background-color:#F2EEC5; text-decoration: none; text-align: center;}
 
 /*어두운 버튼*/
 .button_type_B{background-color:#94B489;}
@@ -76,4 +76,9 @@
     border: none;
     margin: 8px 0;
     color:#383838;
+}
+
+.error_msg{
+    color: red;
+    padding-left: 50%;
 }
