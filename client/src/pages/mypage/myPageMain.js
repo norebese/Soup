@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const myPageUser = () =>{
 
     return (
-        <div className="body_container">
+        <div className={styles.body_container}>
           <div className="header">
             <div className="null"></div>
             <div className="logo">
