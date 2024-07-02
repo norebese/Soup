@@ -2,21 +2,34 @@ import styles from './regist.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import {checkEID} from '../../services/authService'
 
 function ManagerRegist() {
     const [formData, setFormData] = useState({
+      EID : '',
+      companyName: '',
       CEO: '',
-      EID :'',
-      addressLine1: '',
-      addressLine2: '',
       userId: '',
       userpw: '',
       managerName: '',
-      companyName: '',
       email: ''
     });
+    const [eidState, setEid] = useState({ isValid: null, message: '' });
 
-    
+    const handleCheckEID = async (e) => {
+      try {
+        const companyNum = document.getElementById('companyId').value;
+        const result = await checkEID(companyNum)
+        if (result.state == 'valid'){
+          setEid({ isValid: true, message: '일치' });
+        }else {
+          setEid({ isValid: false, message: '일치하지 않음' });
+        }
+      } catch(error) {
+          // console.log(companyNum);
+        console.error('Error submitting report:', error);
+      }
+    };
 
     const navigate = useNavigate();
 
@@ -34,8 +47,8 @@ function ManagerRegist() {
             <div className={styles.section}>
             <div className={styles.btn_container}>
                 <input className={styles.input_style} type="text" placeholder="기업코드" id="companyId"/>
-                <button className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`}>조회</button>
-              </div>
+                <button type='button' onClick={handleCheckEID} className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`}>조회</button>
+            </div>
               <input className={styles.input_style} type="text" placeholder="상호" id="companyName" />
               <input className={styles.input_style} type="text" placeholder="대표자명" id="CEO" />
               <input className={styles.input_style} type="text" placeholder="도로명주소" id="addressLine1" />
