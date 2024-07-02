@@ -1,31 +1,42 @@
 import e from 'express'
-import * as AuthController from '../controller/auth'
+import * as AuthController from '../controller/auth.js'
 
 const router = e.Router();
 
-// search CompanyName
-router.get('/searchcompanyname?name=name', AuthController.SearchCompanyName)
+// =================================
+// ========== 관리자 회원가입 ==========
+// =================================
 
-// search CompanyId
-router.get('/serchcompanyid?id=id', AuthController.SearchCompanyId)
+// 사업자 등록 여부 체크
+router.get('/checkcompanynum', AuthController.CheckCompanyNum)
 
-// check CompanyNum
-router.get('/searchcompany?num=num', AuthController.CheckCompanyNum)
+// 아이디(이메일) 중복체크
+router.get('/adminid', AuthController.CheckAdminId)
 
-// check UserId
-router.get('/userid?id=id', AuthController.CheckUserId)
+// 관리자 회원가입
+router.post('/adminsignup', AuthController.addAdmin)
 
-// SignUp
-router.post('/signup', AuthController.SignUp)
 
-// SignIn
-router.post('/signin', AuthController.SignIn)
+// =================================
+// ========== 유저  회원가입 ==========
+// =================================
 
-// SignOut
-router.post('/signout?', AuthController.sginout)
+// 기업 코드 확인
+router.get('/checkcompanyid', AuthController.CheckCompanyId)
 
-//MyPage
-router.get('/mypage', AuthController.MyPage)
+// 아이디(이메일) 중복체크
+router.get('/userid', AuthController.CheckUserId)
+
+// 유저 회원가입
+router.post('/usersignup', AuthController.addUser)
+
+
+// ================================= 
+// ============  로그인  =============
+// =================================
+
+// 로그인
+router.post('/sginin', AuthController.SiginIn)
 
 
 export default router

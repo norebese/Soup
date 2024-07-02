@@ -1,6 +1,7 @@
-import {config} from './config';
-
+import { config } from './config';
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
     apiKey: config.firebase.apiKey,
@@ -8,11 +9,12 @@ const firebaseConfig = {
     projectId: config.firebase.projectId,
     storageBucket: config.firebase.storageBucket,
     messagingSenderId: config.firebase.messagingSenderId,
-    appId: config.firebase.appId
+    appId: config.firebase.appId,
+    databaseURL: config.firebase.databaseURL
 };
 
-const fbapp = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const database = getDatabase(app);
 
-export default fbapp;
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+export { auth, database };
