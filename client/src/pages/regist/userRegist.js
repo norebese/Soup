@@ -79,6 +79,7 @@ function UserRegist() {
           <button onClick={() => handleNavigate('/')} className={styles.back_btn}>←</button>
         </div>
         <div className={styles.div_container}>
+        <div className='null_container'/>
           <form onSubmit={handleSubmit} className={styles.form_style} name="regist">
             <div className={styles.section}>
               <input className={styles.input_style} onChange={handleChange} name='companyId' type="text" placeholder="기업 코드" id="companyId" />
