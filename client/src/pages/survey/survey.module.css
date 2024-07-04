@@ -158,14 +158,21 @@
     margin: 2vw 3vw;
 }
 
-[type="radio"]{
+[type="radio"][name="answer"]{
     margin: 0;
     vertical-align: middle;
     appearance: none;
     background-color: #EDEDED;
     border-radius: 50%;
-    width: 5.8vw;
-    height: 5.8vw;
+}
+[type="radio"][name="answer"]:checked {
+    background-color: #A9CD7B;
+    border: 0.2em solid #EDEDED;
+    box-shadow: 0 0 0 0.1em #A9CD7B;}
+
+.small_radio{
+    width: 5.5vw;
+    height: 5.5vw;
 }
 
 .big_radio{
@@ -177,8 +184,3 @@
     width: 6.5vw;
     height: 6.5vw;
 }
-
-[type='radio']:checked {
-    background-color: #A9CD7B;
-    border: 0.1em solid #EDEDED;
-    box-shadow: 0 0 0 0.2em #A9CD7B;}

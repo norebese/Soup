@@ -57,7 +57,7 @@ const SurveyPage = () => {
                                     <input type="radio" name="answer" id="disagree" className={styles.middle_radio}/>
                                 </div>
                                 <div className={styles.radio_area}>
-                                    <input type="radio" name="answer" id="netural"/>
+                                    <input type="radio" name="answer" id="netural" className={styles.small_radio}/>
                                 </div>
                                 <div className={styles.radio_area}>
                                     <input type="radio" name="answer" id="agree" className={styles.middle_radio}/>
