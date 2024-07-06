@@ -1,31 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="../mypage/mypage.module.css">
+<link rel="stylesheet" href="../survey/survey.module.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <div class="body">
-        <div class="header">
-            <div class="null">
+<body style="margin: 0; padding: 0;">
+    <div class="body_container">
+        <div class="div_container">
+            <div class="header">
+                <div class="head_container">
+                  <div class="logo">
+                    <img src="" alt="logo" />
+                  </div>
+                  <div class="alert">
+                   ㅇ
+                </div>
+              </div>
             </div>
-            <div class="logo">
-                <img src="" alt="logo">
+          <div class="survey_container">
+            <div class="survey_info">
+                <div class="survey_text_area">
+                    <p>20xx.xx.xx~</p>
+                    <div class="text_head">설문조사 이름</div>
+                </div>
+                <div class="progress_bar">
+                    dd
+                </div>
             </div>
-            <div class="alret">
-                <img src="" alt="alert">
+            <div class="survey_area">
+                <div class="survey_text_area">
+                    <div class="text_head">질문 1번</div>
+                    <div class="question_area">
+                        질문이 들어갈 위치 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, sed alias aut, sequi cupiditate amet omnis voluptate recusandae,  Tempore, sed alias aut, sequi cupiditate amet omnis voluptate recusandae, dolore
+                    </div>
+                    <div class="score_area">
+                        <form action="" class="form_style">
+                            <div class="radio_tag_container">
+                                <div class="radio_tag">
+                                    매우<br>아니다
+                                </div>
+                                <div class="radio_tag">
+                                    보통
+                                </div>
+                                <div class="radio_tag">
+                                    매우<br>그렇다
+                                </div>
+                            </div>
+
+                            <!--이곳이 라디오 버튼-->
+                            <div class="radio_container">
+                                <!--매우 부정-->
+                                <div class="radio_area">
+                                    <input type="radio" name="answer" id="strongly_disagree"class="big_radio">
+                                </div>
+                                <!--부정-->
+                                <div class="radio_area">
+                                    <input type="radio" name="answer" id="disagree" class="middle_radio">
+                                </div>
+                                <!--보통-->
+                                <div class="radio_area">
+                                    <input type="radio" name="answer" id="strongly_agree">
+                                </div>
+                                <!--긍정-->
+                                <div class="radio_area">
+                                    <input type="radio" name="answer" id="agree" class="middle_radio">
+                                </div>
+                                <!--매우 긍정-->
+                                <div class="radio_area">
+                                    <input type="radio" name="answer" id="strongly_agree" class="big_radio">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="card-container">
-                <div class="card-2area"></div>
-                <div class="card-1area"></div>
-                <div class="card-1area"></div>
-                <div class="card-2area"></div>
-                <div class="card-2area"></div>
-            </div>
+          </div>
         </div>
         <div class="footer">
             <div class="menu">■</div>
@@ -33,6 +84,7 @@
             <div class="menu">■</div>
         </div>
     </div>
+</body>
     
 </body>
 </html>
