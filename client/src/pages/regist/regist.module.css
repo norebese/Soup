@@ -148,7 +148,7 @@
     align-items: center;
 }
 
-[type="radio"]{
+[type='radio'][name='Gender']{
     vertical-align: middle;
     appearance: none;
     background-color: #EDEDED;
@@ -157,7 +157,7 @@
     height: 1.3em;
 }
 
-[type='radio']:checked {
+[type='radio'][name='Gender']:checked {
     width: 0.7em;
     height: 0.7em;
     background-color: #A9CD7B;

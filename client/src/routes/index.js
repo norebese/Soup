@@ -7,6 +7,8 @@ import { AuthProvider } from '../context/AuthContext';
 import Login from '../pages/login/login';
 import ManagerRegist from '../pages/regist/managerRegist';
 import UserRegist from '../pages/regist/userRegist';
+import MyPageMain from '../pages/mypage/myPageMain';
+import SurveyPage from '../pages/survey/surveyPage';
 
 const Router = () =>{
   return (
@@ -16,6 +18,8 @@ const Router = () =>{
           <Route path="/" element={<Login/>}/>
           <Route path="/auth/signup" element={<UserRegist/>}/>
           <Route path="/auth/adminsighup" element={<ManagerRegist/>}/>
+          <Route path="/test/mypage" element={<MyPageMain/>}/>
+          <Route path="/test/survey" element={<SurveyPage/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
