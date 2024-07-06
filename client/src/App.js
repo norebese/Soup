@@ -1,10 +1,10 @@
 import React from "react";
 import Routes from "./routes";
-import styles from './App.module.css';
+import "./App.css";
 
 function App() {
   return (
-    <div className={styles.container}>
+    <div className="App">
       <Routes />
     </div>
   );

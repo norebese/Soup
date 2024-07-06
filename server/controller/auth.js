@@ -9,11 +9,15 @@ import * as UserData from '../data/User.js';
 export const CheckCompanyNum = async (req, res)=>{
   console.log('사업자 등록 여부 체크 시작')
   try{
+    // 사업자등록번호 진위여부 확인
     const companyNum = req.query.num;
     const data = await CompanyData.getByCompanyNum(companyNum);
 
     if(!data) res.status(404).json({message:"data 없음 api 오류"})
     res.status(200).json({message:"사업자 등록 여부 결과",data:data})
+
+    // 사업자등록번호 중복 확인
+    const isRe
   }catch(err){
     console.log(`Error: ${err}`)
     res.status(500).json({ message: 'Internal server error' });
