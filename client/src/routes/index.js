@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '../context/AuthContext';
 
 // 페이지
-import Home from '../pages/login/loginMain';
 import Login from '../pages/login/login';
 import ManagerRegist from '../pages/regist/managerRegist';
 import UserRegist from '../pages/regist/userRegist';

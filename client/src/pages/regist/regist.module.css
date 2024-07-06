@@ -129,6 +129,11 @@
     background-color: #EDEDED;
     color:#383838;
 }
+.input_style:disabled{
+    background-color: #7f4545 !important;
+    cursor: not-allowed;
+}
+
 .radio{
     width: 100%;
     display: flex;

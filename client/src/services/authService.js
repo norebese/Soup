@@ -41,11 +41,15 @@ export const checkEID = async (companyNum) => {
     const response = await axios.get(`${API_URL}/auth/checkcompanynum`, {
       params: { num: companyNum }
     });
-    console.log(response.status)
-    if(response.status == 200){
-      return {state: 'valid', eid: response.data}
+    console.log(response.data.message)
+    if(response.status === 200){
+      if(response.data.message === '국세청에 등록되지 않은 사업자등록번호입니다.'){
+        return {state: 'invalid'}
+      }else{
+        return {state: 'valid', eid: response.data.b_no}
+      }
     } else{
-      return {state: 'invalid'}
+      return {state: 'error'}
     }
   }catch (error){
     console.error('error:', error);
