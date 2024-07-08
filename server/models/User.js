@@ -1,8 +1,16 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-import config from '../config/config.js';
+import {config} from '../config/config.js';
 import { useLocalTimeStamps, useVirtualId} from "../config/mongodb.js";
+
+
+const surveySchema = new mongoose.Schema({
+  S_Code: { type: String },
+  S_Title: { type: String },
+  S_Total: { type: Number, default: 0 }
+});
+
 
 const userSchema = new mongoose.Schema({
   C_Code: { type: String, required: true, ref: 'Company' },
@@ -13,11 +21,7 @@ const userSchema = new mongoose.Schema({
   Birth: { type: Date, required: true },
   userId: { type: String, unique: true, required: true },
   userPw: { type: String, required: true },
-  SurveyList: [{
-    S_Code: { type: String },
-    S_Title: { type: String },
-    S_Total: Number, default: 0
-  }],
+  SurveyList: { type: [surveySchema], default: [] },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }
 }, { timestamps: true });

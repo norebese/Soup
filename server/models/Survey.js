@@ -25,7 +25,7 @@ const surveySchema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-useLocalTimeStamps(surveySch  ema);
+useLocalTimeStamps(surveySchema);
 useVirtualId(surveySchema);
 
 // Q_Number 자동 증가 및 AnswerList 정렬

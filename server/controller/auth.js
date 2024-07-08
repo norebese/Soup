@@ -1,5 +1,7 @@
 import * as CompanyData from '../data/Company.js';
+
 import * as UserData from '../data/User.js';
+import {checkDuplicateCompanyNum} from "../data/Company.js";
 
 // =================================
 // ========== 관리자 회원가입 ==========
@@ -11,13 +13,16 @@ export const CheckCompanyNum = async (req, res)=>{
   try{
     // 사업자등록번호 진위여부 확인
     const companyNum = req.query.num;
-    const data = await CompanyData.getByCompanyNum(companyNum);
+    const checkCompanyNum = await CompanyData.getByCompanyNum(companyNum);
 
-    if(!data) res.status(404).json({message:"data 없음 api 오류"})
-    res.status(200).json({message:"사업자 등록 여부 결과",data:data})
+    if(!checkCompanyNum) res.status(404).json({message:"data 없음 api 오류"})
+    res.status(200).json({message:"사업자 등록 여부 결과",data:checkCompanyNum})
 
     // 사업자등록번호 중복 확인
-    const isRe
+    const checkDuplicate = await checkDuplicateCompanyNum(companyNum);
+
+    if(!checkDuplicate) res.status(500).json({message:"이미 가입한 기업"})
+    res.status(200).json({message:"신규 등록 가능"})
   }catch(err){
     console.log(`Error: ${err}`)
     res.status(500).json({ message: 'Internal server error' });
@@ -28,10 +33,10 @@ export const CheckCompanyNum = async (req, res)=>{
 export const addAdmin = async (req, res) => {
   try {
     const { 
-      CompanyName, 
-      CEO, 
-      TEL,
-      EID, 
+      C_Name,
+      C_CEO,
+      C_TEL,
+      C_EID,
       ManagerName,
       ManagerEmail,
       userId,
@@ -39,46 +44,40 @@ export const addAdmin = async (req, res) => {
     } = req.body;
 
     // 필수 입력값 검증
-    if (!CompanyName || !CEO || !TEL || !EID || !ManagerName || !ManagerEmail || !userId || !userPw) {
+    if (!C_Name || !C_CEO || !C_TEL || !C_EID || !ManagerName || !ManagerEmail || !userId || !userPw) {
       return res.status(400).json({message:"필수 입력값 누락"});
     }
-
-    const Code = EID.slice(-5);
-
-    const Company = {
-      Code,
-      CompanyName,
-      CEO,
-      TEL,
-      EID, 
-      ManagerEmail
-    };
-
-    const Admin = {
-      Code,
-      ManagerName,
-      ManagerEmail,
-      userId,
-      userPw
-    };
-
     try {
       // 기업 등록
-      const ComResult = await CompanyData.addCompany(Company);
-      if (!ComResult) {
-        return res.status(502).json({ error: "Failed to register the company" });
+      const Company = {
+        C_Name,
+        C_CEO,
+        C_TEL,
+        C_EID
+      };
+      const ComResult = await CompanyData.createCompany(Company)
+      if (!ComResult.success) {
+        return res.status(502).json({error: "Failed to register the company"});
       }
-
+      // console.log(ComResult.data.C_Code)
       // 관리자 등록
-      // const adminResult = await AdminData.Create(Admin);
-      if (!adminResult) {
+      const Manager = {
+        C_Code:ComResult.data.C_Code,
+        Name:ManagerName,
+        Email:ManagerEmail,
+        userId,
+        userPw
+      };
+
+      const ManagerResult = await UserData.createManager(Manager)
+
+      if (!ManagerResult) {
         return res.status(500).json({ error: "Failed to register the admin" });
       }
-
       // 성공 시 201 상태 코드 반환
       res.status(201).json({ message: "Admin registered successfully" });
     } catch (err) {
-      console.log(`회원 가입 오류 ${err}`);
+      console.log(`회원가입 오류 ${err}`);
       res.status(500).json({ error: "An error occurred during the registration process" });
     }
   } catch (err) {

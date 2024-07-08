@@ -1,13 +1,10 @@
-import mongoose from 'mongoose';
 import axios from 'axios';
 
 import { config } from '../config/config.js';
-
 import Company from '../models/Company.js';
-import company from "../models/Company.js";
 
-// 사업자등록 상태 조회 
-export const getByCompanyNum = async (num)=>{
+// 사업자등록 상태 조회
+export const getByCompanyNum = async (num) => {
     const base_url = 'http://api.odcloud.kr/api/nts-businessman/v1/';
     const SERVICE = "status";
     const TYPE = "?returnType=JSON";
@@ -17,12 +14,11 @@ export const getByCompanyNum = async (num)=>{
         const response = await axios.post(`${base_url}${SERVICE}${TYPE}${APIKEY}`, {
             b_no: [num]
         });
-        // console.log(response.data)
         const data = {
-            message:response.data.data[0].tax_type,
-            b_no:response.data.data[0].b_no
+            message: response.data.data[0].tax_type,
+            b_no: response.data.data[0].b_no
         }
-        return data
+        return data;
     } catch (error) {
         console.error("Error fetching data:", error);
         throw error;
@@ -30,26 +26,27 @@ export const getByCompanyNum = async (num)=>{
 }
 
 // 사업자등록번호 중복 검사(중복 가입 확인)
-export const a = async (num)=>{
-    // 사업자등록번호 기반으로 중복 체크
-    try{
-        const result = await Company.findOne({ C_EID: CompanyData.C_EID });
-        if (existingCompany) {
-            // 중복된 경우 에러 반환
-            return { success: false, message: '사업자등록번호가 중복되었습니다.' };
-        }
-    }catch(err){
-
+export const checkDuplicateCompanyNum = async (num) => {
+    try {
+        const existingCompany = await Company.findOne({ C_EID: num });
+        if (existingCompany) return false;
+        return true;
+    } catch (error) {
+        console.error("Error creating company:", error);
+        return { success: false, error: error.message };;
     }
 }
 
 // 기업 등록
-export const Create = async (CompanyData)=>{
-
-    // 기업 등록
-
+export const createCompany = async (CompanyData) => {
+    try {
+        
+        // 기업 등록
+        const newCompany = new Company(CompanyData);
+        const result = await newCompany.save();
+        return { success: true, data: result };
+    } catch (error) {
+        console.error("Error creating company:", error);
+        return { success: false, error: error.message };
+    }
 }
-
-// 기업 정보 수정
-
-// 기업 삭제

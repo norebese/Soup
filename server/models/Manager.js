@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
 
-import config from '../config/config.js';
+import { config } from '../config/config.js'
+
 import { useLocalTimeStamps, useVirtualId} from "../config/mongodb.js";
 
 const managerSchema = new mongoose.Schema({
@@ -18,7 +19,7 @@ useVirtualId(managerSchema);
 // 비밀번호 해시화
 managerSchema.pre('save', async function(next) {
   if (this.isModified('userPw') || this.isNew) {
-    const salt = await bcrypt.genSalt(config.bcrypt.saltRound);
+    const salt = await bcrypt.genSalt(parseInt(config.bcrypt.saltRound));
     this.userPw = await bcrypt.hash(this.userPw, salt);
   }
   next();
