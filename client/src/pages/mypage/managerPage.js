@@ -2,11 +2,10 @@ import {icon} from '../../assets';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import styles from "./mypage.module.css";
-import Accordion from 'react-bootstrap/Accordion';
 import { useNavigate } from 'react-router-dom';
 
 
-const MyPageUser = () =>{
+const MyPageManager= () =>{
 
     return (
         <div className={styles.body_container}>
@@ -29,23 +28,21 @@ const MyPageUser = () =>{
               <div className={styles.user_info}>
                 <div className={styles.user_icon}>
                 </div>
-                <div className={styles.user_fix}>유저 정보 수정</div>
+                <div className={styles.user_fix}></div>
               </div>
-              <div className={styles.graph_area}>
-                6개월간의 변화가 나타나는 그래프
+              <DropdownButton id="dropdown-basic-button" title="">
+                <Dropdown.Item href="#/action_1">월별 선택</Dropdown.Item>
+                <Dropdown.Item href="#/action_2">월별 선택</Dropdown.Item>
+                <Dropdown.Item href="#/action_3">월별 선택</Dropdown.Item>
+                </DropdownButton>
+              <div className={styles.card_2area}>
+              이곳에 월 선택에 따른 그래프
+              </div>
+              
+              <div className={styles.card_2area}>
+              전체 기간 그래프
               </div>
 
-              <Accordion>
-                <Accordion.Item eventKey="0">
-                <Accordion.Header>설문조사 현황</Accordion.Header>
-                <Accordion.Body>
-                  설문조사 
-                </Accordion.Body>
-                <Accordion.Body>
-                  설문조사 2
-                </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
             </div>
           </div>
           <div className={styles.footer}>
@@ -58,4 +55,4 @@ const MyPageUser = () =>{
 }
 
 
-export default MyPageUser
+export default MyPageManager
