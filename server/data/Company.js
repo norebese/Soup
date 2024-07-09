@@ -50,3 +50,19 @@ export const createCompany = async (CompanyData) => {
         return { success: false, error: error.message };
     }
 }
+// 관리자 추가
+export const addManager = async (companyId, managerData) => {
+    try {
+        const company = await Company.findById(companyId);
+        if (!company) {
+            return { success: false, error: "Company not found" };
+        }
+
+        company.ManagerList.push(managerData);
+        const result = await company.save();
+        return { success: true, data: result };
+    } catch (error) {
+        console.error("Error adding manager:", error);
+        return { success: false, error: error.message };
+    }
+}

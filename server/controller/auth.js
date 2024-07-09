@@ -74,6 +74,16 @@ export const addAdmin = async (req, res) => {
       if (!ManagerResult) {
         return res.status(500).json({ error: "Failed to register the admin" });
       }
+
+      const manager = {
+        M_Id:userId,
+        M_Name:ManagerName
+      }
+
+      // 기업의 관리지 리스트에 생성한 관리자 추가
+      const addManager = await CompanyData.addManager(ComResult.data._id, manager)
+
+      if(!addManager) res.status(500).json({ error:"관리자 등록 실패"})
       // 성공 시 201 상태 코드 반환
       res.status(201).json({ message: "Admin registered successfully" });
     } catch (err) {
