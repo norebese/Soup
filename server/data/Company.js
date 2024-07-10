@@ -40,7 +40,6 @@ export const checkDuplicateCompanyNum = async (num) => {
 // 기업 등록
 export const createCompany = async (CompanyData) => {
     try {
-        
         // 기업 등록
         const newCompany = new Company(CompanyData);
         const result = await newCompany.save();
@@ -50,10 +49,11 @@ export const createCompany = async (CompanyData) => {
         return { success: false, error: error.message };
     }
 }
+
 // 관리자 추가
-export const addManager = async (companyId, managerData) => {
+export const addManager = async (C_Code, managerData) => {
     try {
-        const company = await Company.findById(companyId);
+        const company = await Company.findOne({C_Code: C_Code});
         if (!company) {
             return { success: false, error: "Company not found" };
         }
@@ -64,5 +64,34 @@ export const addManager = async (companyId, managerData) => {
     } catch (error) {
         console.error("Error adding manager:", error);
         return { success: false, error: error.message };
+    }
+}
+
+// 유저 추가
+export const addUser = async (C_Code, userData) => {
+    try{
+        const company = await Company.findOne({C_Code: C_Code})
+        if(!company){
+            return { success: false, error: "해당 기업 없음"}
+        }
+
+        company.UserList.push(userData)
+        const result = await company.save();
+        return { success: true, data: result}
+    }catch(error){
+        console.error("Error adding manager:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// 기업 검색
+export const searchCompany = async (keyword) => {
+    try{
+        const company = await Company.findOne({ C_Name: { $regex: keyword, $options: 'i' } }).sort({ C_Name: 1 });
+        if(!company) return {success:false, error: "해당 기업 없음"}
+        return {success:true, data: company}
+    }catch(err){
+        console.error("Error search Company", err);
+        return { success: false, error: err.message}
     }
 }
