@@ -120,7 +120,7 @@ export const addUser = async (req, res)=>{
     }
     try{
         // 유저 등록
-        const newUser = await UserData.Create(User)
+        const newUser = await UserData.createUser(User)
         if(!newUser) res.status(500).json({message:"유저 회원가입 실패"})
         // 기업에 해당 유저 등록
         const addUser = await CompanyData.addUser(User.C_Code, manager)
