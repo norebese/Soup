@@ -4,7 +4,7 @@ import { config } from '../config/config.js';
 import Company from '../models/Company.js';
 
 // 사업자등록 상태 조회
-export const getByCompanyNum = async (num) => {
+export const CompanyAPI = async (C_EID) => {
     const base_url = 'http://api.odcloud.kr/api/nts-businessman/v1/';
     const SERVICE = "status";
     const TYPE = "?returnType=JSON";
@@ -12,28 +12,42 @@ export const getByCompanyNum = async (num) => {
 
     try {
         const response = await axios.post(`${base_url}${SERVICE}${TYPE}${APIKEY}`, {
-            b_no: [num]
+            b_no: [C_EID]
         });
         const data = {
             message: response.data.data[0].tax_type,
             b_no: response.data.data[0].b_no
         }
-        return data;
-    } catch (error) {
-        console.error("Error fetching data:", error);
-        throw error;
+        return { success: true, message: "사업자등록번호 진위여부 검사 성공", data:data}
+    } catch (err) {
+        console.log("사업자등록번호 진위여부 검사 에러:", err);
+        return { success: false, message: "사업자등록번호 진위여부 검사 에러", error:err}
     }
 }
 
 // 사업자등록번호 중복 검사(중복 가입 확인)
-export const checkDuplicateCompanyNum = async (num) => {
+export const checkCompanyNum = async (C_EID) => {
     try {
-        const existingCompany = await Company.findOne({ C_EID: num });
-        if (existingCompany) return false;
-        return true;
-    } catch (error) {
-        console.error("Error creating company:", error);
-        return { success: false, error: error.message };;
+        const existingCompany = await Company.findOne({ C_EID: C_EID });
+        if (existingCompany) return { success: false, message: "이미 등록된 사업자등록번호"}
+        return { success: true, message: "가입 가능한 사업자등록번호", data:C_EID}
+    } catch (err) {
+        console.log("사업자 등록번호 중복 검사 에러:", err);
+        return { success: false, message: "사업자 등록번호 중복 검사 에러", error: err };;
+    }
+}
+
+// 기업이름으로 검색
+export const searchCompany = async (C_Name) => {
+    try{
+        const company = await Company.findOne({ C_Name: { $regex: C_Name, $options: 'i' } })
+                                    .sort({ C_Name: 1 })
+                                    .select('C_Code C_Name C_CEO C_EID');
+        if(!company) return {success:false, message: "해당 기업 없음"}
+        return {success:true, message: "기업 검색 성공", data: company}
+    }catch(err){
+        console.log("기업 검색 에러:", err);
+        return { success: false, message: "기업 검색 에러", error: err}
     }
 }
 
@@ -43,55 +57,48 @@ export const createCompany = async (CompanyData) => {
         // 기업 등록
         const newCompany = new Company(CompanyData);
         const result = await newCompany.save();
-        return { success: true, data: result };
-    } catch (error) {
-        console.error("Error creating company:", error);
-        return { success: false, error: error.message };
+        return { success: true, message:"기업 등록 성공",data: result };
+    } catch (err) {
+        console.log("기업 등록 에러:", err);
+        return { success: false, message:"기업 등록 에러", error: err.message };
     }
 }
 
 // 관리자 추가
-export const addManager = async (C_Code, managerData) => {
+export const addManager = async (Data) => {
     try {
-        const company = await Company.findOne({C_Code: C_Code});
+        const company = await Company.findOne({C_Code: Data.C_Code});
         if (!company) {
-            return { success: false, error: "Company not found" };
+            return { success: false, error: "해당 기업 없음" };
         }
+
+        const { C_Code, ...managerData } = Data;
 
         company.ManagerList.push(managerData);
         const result = await company.save();
         return { success: true, data: result };
-    } catch (error) {
-        console.error("Error adding manager:", error);
-        return { success: false, error: error.message };
+    } catch (err) {
+        console.log("관리자 추가 에러", err);
+        return { success: false, message: "관리자 추가 에러", error: err };
     }
 }
 
 // 유저 추가
-export const addUser = async (C_Code, userData) => {
+export const addUser = async (Data) => {
     try{
-        const company = await Company.findOne({C_Code: C_Code})
+        const company = await Company.findOne({C_Code: Data.C_Code})
         if(!company){
             return { success: false, error: "해당 기업 없음"}
         }
 
-        company.UserList.push(userData)
+        const { C_Code, ...UserData } = Data;
+
+        company.UserList.push(UserData)
         const result = await company.save();
         return { success: true, data: result}
-    }catch(error){
-        console.error("Error adding manager:", error);
-        return { success: false, error: error.message };
+    }catch(err){
+        console.log("유저 추가 에러: ", err);
+        return { success: false, message:"유저 추가 에러", error: err };
     }
 }
 
-// 기업 검색
-export const searchCompany = async (keyword) => {
-    try{
-        const company = await Company.findOne({ C_Name: { $regex: keyword, $options: 'i' } }).sort({ C_Name: 1 });
-        if(!company) return {success:false, error: "해당 기업 없음"}
-        return {success:true, data: company}
-    }catch(err){
-        console.error("Error search Company", err);
-        return { success: false, error: err.message}
-    }
-}

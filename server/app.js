@@ -17,9 +17,9 @@ app.use(e.urlencoded({ extended: true }));  // 더 복잡한 구조의 URL-encod
 app.use('/auth', authRouter)
 
 // 404 Not Found 처리 미들웨어
-// app.use('/', (req, res, next) => {
-//     res.status(404).send('Not Found');
-// });
+app.use('/', (req, res, next) => {
+    res.status(404).send('Not Found');
+});
 
 connectDatabases().then(()=> {
     app.listen(config.server.hostport, () => {

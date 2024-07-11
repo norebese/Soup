@@ -14,15 +14,22 @@ root/
 │   ├── database.js
 │   └── mongodb.js
 ├── controller/
-│   ├── auth.js
-│   └── main.js
+│   └── auth.js
 ├── data/
 │   ├── Company.js
+│   ├── Survey.js
 │   └── User.js/
 ├── middleware/
 │   └── isAuth.js
+├── middleware/
+│   ├── Company.js
+│   ├── Manager.js
+│   ├── Survey.js
+│   └── User.js
 ├── node_modules/
 │   └── ...
+├── router/
+│   └── auth.js
 ├── .env
 ├── .gitignore
 ├── app.js
