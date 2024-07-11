@@ -1,42 +1,54 @@
-// import { auth, database } from '../config/firebase';
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { ref, set } from "firebase/database";
+import Manager from '../models/Manager.js';
+import User from '../models/User.js';
 
-// export const registerUser = async (User)=>{
-//     const { 
-//       companyId, 
-//       companyTeam, 
-//       companyPosition, 
-//       userName, 
-//       Gender, 
-//       Birth, 
-//       userId, 
-//       userPwd 
-//     } = User.body;
+// ================================= 
+// ========  아이디 중복 체크  =========
+// =================================
 
-//     try {
-//         const userCredential = await createUserWithEmailAndPassword(auth, userId, userPwd);
-//         const user = userCredential.user;
+// 관리자 아이디 중복 체크
+export const searchByManagerId = async (userId) => {
+    try{
+        const data = await Manager.findOne({ userId });
+        if(data) return { success: false, message: "매니저 아이디 중복"}
+        return { success: true, message: "매니저 아이디 사용 가능"}
+    }catch(err){
+        console.log("매니저 아이디 중복 체크 오류")
+        return { success: false, message: "매니저 아이디 중복 체크 오류", error:err}
+    }
+}
 
-//         // Realtime Database에 사용자 정보 저장
-//         await set(ref(database, 'users/' + user.uid), {
-//             companyId: companyId,
-//             companyTeam: companyTeam,
-//             companyPosition: companyPosition,
-//             userName: userName,
-//             Gender: Gender,
-//             Birth: Birth,
-//             email: userId
-//         });
+// 유저 아이디 중복 체크
+export const searchByUserId = async (userId) =>{
+    try{
+        const data = await User.findOne({ userId })
+        if(data) return { success: false, message: "유저 아이디 중복"}
+        return { success: true, message: "유저 아이디 사용 가능"}
+    }catch(err){
+        console.log("유저 아이디 중복 체크 오류")
+        return { success: false, message: "유저 아이디 중복 체크 오류", error:err}
+    }
+}
 
-//         console.log('User registered successfully:', user);
-//         return true
-//     } catch (error) {
-//         console.error('Error registering user:', error);
-//         return false
-//     }
-// }
+// 관리자 등록
+export const createManager = async (ManagerData) => {
+    try{
+        const newManager = new Manager(ManagerData);
+        const result = await newManager.save();
+        return { success: true, message:"관리자 등록 성공",data: result };
+    }catch(err){
+        console.log("관리자 등록 에러:", err);
+        return { success: false, message: "관리자 등록 에러", error: err.message };
+    }
+}
 
-// export const CheckUserId = async (UserId)=>{
-// 8
-// }
+// 유저 등록
+export const createUser = async (UserData) => {
+    try{
+        const newUser = new User(UserData);
+        const result = await newUser.save();
+        return { success: true, message:"유저 등록 성공",data: result};
+    }catch(err){
+        console.log("유저 등록 에러", err);
+        return { success: false, message:"유저 등록 에러",error: err.message}
+    }
+}
