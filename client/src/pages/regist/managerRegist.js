@@ -2,58 +2,73 @@ import styles from './regist.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import {checkEID} from '../../services/authService'
 
 function ManagerRegist() {
     const [formData, setFormData] = useState({
+      EID : '',
+      companyName: '',
       CEO: '',
-      EID :'',
-      addressLine1: '',
-      addressLine2: '',
       userId: '',
       userpw: '',
       managerName: '',
-      companyName: '',
       email: ''
     });
+    const [eidState, setEid] = useState({ isValid: null, message: '' });
 
-    function alertmsg(key) {
-        const translations = {
-          CEO: '대표자',
-          EID :'사업자등록번호',
-          addressLine1: '도로명 주소',
-          addressLine2: '상세 주소',
-          userId: '아이디',
-          userpw: '비밀번호',
-          managerName: '관리자 이름',
-          companyName: '상호',
-          email: '이메일'
-        };
-        return translations[key] || key;
+    const handleCheckEID = async (e) => {
+      try {
+        const companyNum = document.getElementById('companyId').value;
+        const result = await checkEID(companyNum)
+        if (result.state == 'valid'){
+          setEid({ isValid: true, message: '일치' });
+        }else {
+          setEid({ isValid: false, message: '일치하지 않음' });
+        }
+      } catch(error) {
+          // console.log(companyNum);
+        console.error('Error submitting report:', error);
       }
+    };
+
+    const navigate = useNavigate();
+
+    const handleNavigate = (path) => {
+      navigate(path);
+    };
 
     return (
-        <div className="body">
-        <div className="nav">
-          <button className="back_btn">←</button>
+        <div className={styles.body_container}>
+        <div className={styles.nav}>
+          <button onClick={() => handleNavigate('/')} className={styles.back_btn}>←</button>
         </div>
-        <div className="container">
-          <form name="regist">
-            <div className="section">
-              <input type="text" placeholder="기업 코드" id="companyId" />
-              <input type="text" placeholder="상호" id="companyName" />
-              <input type="text" placeholder="대표자명" id="CEO" />
-              <input type="text" placeholder="도로명주소" id="addressLine1" />
-              <input type="text" placeholder="상세주소" id="addressLine2" />
+        <div className={styles.div_container}>
+          <form name="regist" className={styles.form_style}>
+            <div className='null_container'/>
+            <div className={styles.section}>
+            <div className={styles.btn_container}>
+                <input className={styles.input_style} type="text" placeholder="기업코드" id="companyId"/>
+                <button type='button' onClick={handleCheckEID} className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`}>조회</button>
             </div>
-            <div className="section">
-              <input type="text" placeholder="아이디" id="userId" />
-              <input className="password" type="password" placeholder="비밀번호" id="userpw" />
+              <input className={styles.input_style} type="text" placeholder="상호" id="companyName" />
+              <input className={styles.input_style} type="text" placeholder="대표자명" id="CEO" />
+              {/* <input className={styles.input_style} type="text" placeholder="도로명주소" id="addressLine1" />
+              <input className={styles.input_style} type="text" placeholder="상세주소" id="addressLine2" /> */}
+            </div> 
+            <div className={styles.section}>
+              <div className={styles.btn_container}>
+                <input className={styles.input_style} type="text" placeholder="아이디" id="userid"/>
+                <button className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`}>중복 확인</button>
+              </div>
+              <input className={`${styles.password} ${styles.input_style}`} type="password" placeholder="비밀번호" id="userpw" />
+              <input className={`${styles.password} ${styles.input_style}`} type="password" placeholder="비밀번호 확인" id="userpw" />
             </div>
-            <div className="section">
-              <input type="text" placeholder="관리자 이름" id="managerName" />
-              <input type="text" placeholder="전화번호" id="phoneNumber" />
+            <div className={styles.section}>
+              <input className={styles.input_style} type="text" placeholder="관리자 이름" id="managerName" />
+              <input className={styles.input_style} type="text" placeholder="전화번호" id="phoneNumber" />
+              <input className={styles.input_style} type="text" placeholder="관리자 이메일" id="" />
             </div>
-            <button className={`${styles.button_type_B} ${styles.regist}`}>회원가입</button>
+            <button className={`${styles.button_type_B} ${styles.regist} ${styles.btn_style}`}>회원가입</button>
           </form>
         </div>
       </div>

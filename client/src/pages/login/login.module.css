@@ -1,9 +1,5 @@
-body{
-    margin: 0;
-}
-
 /*여기부터*/
-.body {
+.body_container {
     background-color: #CAD7A6;
     font-size: 1.1rem;
     color: #383838;
@@ -23,7 +19,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    /* width: 50%; */
     margin: 15px 0 10px;
 }
 .text{
@@ -31,7 +27,7 @@ body{
     font-size: 0.9rem;
     font-weight: bold;
 }
-.container{
+.div_container{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,27 +36,29 @@ body{
     width: 90%;
     height: 100%;
 }
-img{width: 80%;}
+.logo_img{width: 80%;}
 
 /* 버튼 설정 */
-button {
+.btn_style {
     cursor: pointer;
     border-radius: 14px;
-    padding: 10px 0;
+    padding: 10px;
     box-sizing:border-box;
-    font-size: 1.1rem;
+    font-size: 1rem;
     width: 90%;
+    height: 12vw;
     border: none;
     margin: 8px 0;
     color:#383838;
+    background-color: transparent;
 }
 /*밝은 버튼*/
-.button_type_A{background-color:#F2EEC5;}
+.button_type_A{background-color:#F2EEC5; text-decoration: none; text-align: center;}
 
 /*어두운 버튼*/
-.button_type_B{background-color:#94B489;}
+.button_type_B{background-color:#94B489; text-decoration: none; text-align: center;}
 
-form{
+.form_style{
     justify-content: center;
     align-items: center;
 
@@ -69,15 +67,20 @@ form{
     flex-direction: column;
 }
 /*input*/
-input {
+.input_style {
     cursor: pointer;
     box-sizing:border-box;
     border-radius: 14px;
     padding: 10px;
     font-size: 1.1rem;
     width: 90%;
-    height: 35%;
+    height: 12vw;
     border: none;
     margin: 8px 0;
     color:#383838;
+}
+
+.error_msg{
+    color: red;
+    padding-left: 50%;
 }

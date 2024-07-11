@@ -11,14 +11,14 @@ const LoginMain = () =>{
   };
 
     return(
-      <div className={styles.body}>
-        <div className={styles.container}>
+      <div className={styles.body_container}>
+        <div className={styles.div_container}>
           <div className={styles.logo}>
-            <img src={icon} alt="logo" />
+            <img className='logo_img' src={icon} alt="logo" />
             </div>
             <div className={styles.text}>슬로건 한 줄</div>
-            <button onClick={() => handleNavigate('/auth/signup')} className={`${styles.button_type_A} ${styles.regist}`}>회원 가입</button>
-            <button onClick={() => handleNavigate('/login')} className={`${styles.button_type_B} ${styles.login}`}>로그인</button>
+            <button onClick={() => handleNavigate('/auth/signup')} className={`${styles.button_type_A} ${styles.regist} $${styles.btn_style}`}>회원 가입</button>
+            <button onClick={() => handleNavigate('/login')} className={`${styles.button_type_B} ${styles.login} $${styles.btn_style}`}>로그인</button>
         </div>
       </div>
     );
