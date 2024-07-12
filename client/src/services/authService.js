@@ -37,7 +37,13 @@ export const managerRegistService = async (formData) => {
       userId: formData.validId,
       userPw: formData.userpwConfirm
     });
-    return response.data;
+    if (response.status === 201){
+      const loginResponse = await loginService(formData.validId, formData.userpwConfirm);
+      console.log('loginResponse', loginResponse)
+      // return loginResponse;
+    }else{
+      console.log(response)
+    }
   } catch (error) {
     console.log(formData)
     console.error('Registration error:', error);

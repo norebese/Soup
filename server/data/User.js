@@ -1,5 +1,4 @@
 import Manager from '../models/Manager.js';
-import Manager from '../models/Manager.js';
 import User from '../models/User.js';
 
 // ================================= 
