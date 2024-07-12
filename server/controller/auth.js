@@ -44,9 +44,6 @@ export const searchCompany = async (req, res)=>{
 export const addCompanyTeam = async (req, res)=>{
   const {code, team} = req.query;
 
-  console.log(code)
-  console.log(team)
-
   const newTeam = await CompanyData.addTeam({code, team})
   console.log(newTeam.message)
 
