@@ -226,25 +226,33 @@ function createJwtToken(user) {
 export const SiginIn = async (req, res)=>{
   try{
     const data = req.body
-    console.log(data)
+
     if(!data.userId || !data.userPw){
       return res.status(400).json({message:"필수 입력값 누락"});
     }
-
+    let result;
     try{
-      const User = await UserData.getByuserId(data.userId)
-
-      if(!User.success) return res.status(401).json({message:"이메일, 패스워드를 확인하세요"});
-
-      const isValid = await bcrypt.compare(data.userPw, User.data.userPw);
+      const Manager = await UserData.getByManagerId(data.userId)
+      console.log(Manager.message)
+      if(!Manager.success){
+        const User = await UserData.getByuserId(data.userId)
+        console.log(User.message)
+        
+        if(!User.success) return res.status(401).json({message:"이메일, 패스워드를 확인하세요"});
+        result = User
+      }else{
+        result = Manager
+      }
+      
+      const isValid = await bcrypt.compare(data.userPw, result.data.userPw);
 
       if(!isValid){
         console.log("비밀번호 불일치", isValid)
         return res.status(401).json({message:"이메일, 패스워드를 확인하세요"})
       }
 
-      const jwtToken = createJwtToken( User.data.userId );
-      res.status(201).json({ message:"로그인 성공", token: jwtToken, name:User.data.Name });
+      const jwtToken = createJwtToken( result.data.userId );
+      res.status(201).json({ message:"로그인 성공", token: jwtToken, name:result.data.Name, type:result.type});
     }catch(err){
       console.log("로그인 오류: ", err)
       res.status(500).json({ message:"로그인 오류", error:err})
