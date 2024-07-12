@@ -57,7 +57,6 @@ export const createUser = async (UserData) => {
 
 // 관리자 아이디 기반 찾기
 export const getByManagerId = async (id) => {
-    console.log(id)
     try{
         const manager = await Manager.findOne({ userId:id })
 
@@ -72,7 +71,6 @@ export const getByManagerId = async (id) => {
 
 // 유저 아이디 가반 찾기
 export const getByuserId = async (id) => {
-    console.log(id)
     try{
         const user = await User.findOne({ userId:id })
 
