@@ -52,3 +52,19 @@ export const createUser = async (UserData) => {
         return { success: false, message:"유저 등록 에러",error: err.message}
     }
 }
+
+// 로그인
+
+// 아이디 기반 찾기
+export const getByuserId = async (userId) => {
+    try{
+        const User = await User.findOne({ userId })
+
+        if(!User) return {success:false, message:"해당 아이디 없음"};
+
+        return { success:true, message:"해당 아이디 있음", data:User}
+    }catch(err){
+        console.log('유저 아이디 찾기 에러:', err);
+        return { success:false, message:"유저 아이디 찾기 에러", error: err.message}
+    }
+}
