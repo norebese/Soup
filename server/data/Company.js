@@ -65,14 +65,17 @@ export const createCompany = async (CompanyData) => {
 }
 
 // 기업 부서 추가
-export const addTeam = async (TeamData)=>{
+export const addTeam = async (Data)=>{
     try{
-        const company = await Company.findOne({C_Code: TeamData.C_Cod})
+        const company = await Company.findOne({C_Code: Data.code})
         if(!company){
             return { success: false, error: "해당 기업 없믕"}
         }
+
+        const isTeam = company.TeamList.includes(Data.team)
+        if(isTeam) return { success: false, message: "이미 등록된 부서"}
         
-        company.TeamList.push(TeamData.Team);
+        company.TeamList.push(Data.team);
         const result = await company.save();
         return { success:true, message: "부서 추가 성공", data: result}
     }catch(err){
