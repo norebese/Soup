@@ -2,7 +2,7 @@ import styles from './regist.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import {checkEID} from '../../services/authService'
+import {checkEID, checkID} from '../../services/authService'
 
 function ManagerRegist() {
     const [formData, setFormData] = useState({
@@ -21,8 +21,9 @@ function ManagerRegist() {
 
     const [errors, setErrors] = useState({});
     const [eidState, setEid] = useState({ isValid: null, message: '' });
+    const [idState, setid] = useState({ isValid: null, message: '' });
 
-    const { regist } = useAuth();
+    const { managerRegist } = useAuth();
 
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -60,13 +61,16 @@ function ManagerRegist() {
         return;
       }
       try {
-        const result = await checkEID(formData.EID)
+        const cleanedNumber = formData.EID.replace(/-/g, '');
+        console.log('cleanedNumber', cleanedNumber)
+        const result = await checkEID(cleanedNumber)
         if (result.state === 'valid'){
           setEid({ isValid: true, message: '일치' });
           setFormData(prev => ({
             ...prev,
-            validEID: result.eid,
+            validEID: cleanedNumber,
           }));
+          setEid({ isValid: true, message: '유효힌 사업자등록번호 입니다' });
         }else {
           setEid({ isValid: false, message: '사업자등록번호가 일치하지 않음' });
         }
@@ -85,6 +89,16 @@ function ManagerRegist() {
       }
       try {
         //중복검사
+        const result = await checkID(formData.userId)
+        if (result.state === 'valid'){
+          setFormData(prev => ({
+            ...prev,
+            validId: formData.userId,
+          }));
+          setid({ isValid: true, message: '유효힌 아이디 입니다' });
+        }else{
+          setid({ isValid: false, message: '중복된 아이디 입니다' });
+        }
       } catch (error) {
         console.error('아이디 중복 검사오류:', error);
       }
@@ -102,7 +116,7 @@ function ManagerRegist() {
         }
       }else {
         try {
-          await regist(formData);
+          await managerRegist(formData);
         } catch (error) {
             console.log(formData);
             console.error('Error submitting report:', error);
@@ -132,6 +146,7 @@ function ManagerRegist() {
             {errors.EID && <span className={styles.error_msg}>{errors.EID}</span>}
             {errors.validEID && <span className={styles.error_msg}>{errors.validEID}</span>}
             {eidState.isValid === false && <span className={styles.error_msg}>{eidState.message}</span>}
+            {eidState.isValid === true && <span className={styles.valid_msg}>{eidState.message}</span>}
               <input onChange={handleChange} className={styles.input_style} name='CompanyName' type="text" placeholder="상호" id="companyName" />
               {errors.CompanyName && <span className={styles.error_msg}>{errors.CompanyName}</span>}
               <input onChange={handleChange} className={styles.input_style} name='CEO' type="text" placeholder="대표자명" id="CEO" />
@@ -145,6 +160,8 @@ function ManagerRegist() {
                 <button type='button' onClick={handleCheckID} className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`}>중복 확인</button>
               </div>
               {errors.userId && <span className={styles.error_msg}>{errors.userId}</span>}
+              {idState.isValid === false && <span className={styles.error_msg}>{idState.message}</span>}
+              {idState.isValid === true && <span className={styles.valid_msg}>{idState.message}</span>}
               <input onChange={handleChange} className={`${styles.password} ${styles.input_style}`} name='userpw' type="password" placeholder="비밀번호" id="userpw" />
               {errors.userpw && <span className={styles.error_msg}>{errors.userpw}</span>}
               <input onChange={handleChange} className={`${styles.password} ${styles.input_style}`} name='userpwConfirm' type="password" placeholder="비밀번호 확인" id="userpw" />

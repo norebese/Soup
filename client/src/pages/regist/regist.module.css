@@ -176,3 +176,10 @@
     padding-left: 0;
     
 }
+
+.valid_msg{
+    color: green;
+    font-size: 0.8rem;
+    align-self: baseline;
+    padding-left: 8%;
+}

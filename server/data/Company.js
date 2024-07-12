@@ -55,6 +55,7 @@ export const searchCompany = async (C_Name) => {
 export const createCompany = async (CompanyData) => {
     try {
         // 기업 등록
+        console.log('기업 등록: ', CompanyData)
         const newCompany = new Company(CompanyData);
         const result = await newCompany.save();
         return { success: true, message:"기업 등록 성공",data: result };

@@ -26,8 +26,18 @@ export const userRegistService = async (formData) => {
 };
 
 export const managerRegistService = async (formData) => {
+  console.log('formData:', formData)
   try {
-    const response = await axios.post(`${API_URL}/auth/adminsighup`, { formData });
+    const response = await axios.post(`${API_URL}/auth/adminsignup`, {
+      C_Name: formData.CompanyName,
+      C_CEO: formData.CEO,
+      C_TEL: formData.CompanyTel,
+      C_EID: formData.validEID,
+      ManagerName: formData.ManagerName,
+      ManagerEmail: formData.ManagerEmail,
+      userId: formData.validId,
+      userPw: formData.userpwConfirm
+    });
     return response.data;
   } catch (error) {
     console.log(formData)
@@ -38,7 +48,7 @@ export const managerRegistService = async (formData) => {
 
 export const checkEID = async (companyNum) => {
   try{
-    const response = await axios.get(`${API_URL}/auth/checkcompanynum`, {
+    const response = await axios.get(`${API_URL}/auth/checkcompany`, {
       params: { num: companyNum }
     });
     console.log(response.data.message)
@@ -52,6 +62,23 @@ export const checkEID = async (companyNum) => {
       return {state: 'error'}
     }
   }catch (error){
+    console.error('error:', error);
+    throw error;
+  }
+}
+
+export const checkID = async (userid) => {
+  try {
+    const response = await axios.get(`${API_URL}/auth/checkid`, {
+      params: { userid }
+    });
+    console.log(response.data.message)
+    if(response.status === 200){
+      return {state: 'valid'}
+    }else{
+      return {state: 'invalid'}
+    }
+  } catch (error) {
     console.error('error:', error);
     throw error;
   }
