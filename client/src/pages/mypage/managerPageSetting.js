@@ -5,7 +5,7 @@ import styles from "./mypage.module.css";
 import { useNavigate } from 'react-router-dom';
 
 
-const MyPageSetting = () =>{
+const ManagerPageSetting = () =>{
 
     return (
         <div className={styles.body_container}>
@@ -24,12 +24,27 @@ const MyPageSetting = () =>{
           </div>
         </div>
         <div className={styles.div_container}>
+          <div className={styles.user_info}>
+              <div className={styles.user_fix}>
+                <div className={styles.user_company}>기업이름</div>
+                <div className={styles.user_greet}>환영합니다 user님!</div>
+                <div className={styles.user_lastlogin}>마지막 접속일자 : </div>
+              </div>
+          </div>
+          <div className={styles.button_container}>
             <div className={styles.button_1area}>
-              비밀번호 변경
+              개인정보 수정
             </div>
             <div className={styles.button_1area}>
-              개인정보 변경
+              기업정보 수정
             </div>
+            <div className={styles.button_1area}>
+              유저 관리
+            </div>
+            <div className={styles.button_1area}>
+              메시지 관리
+            </div>
+          </div>
         </div>
         <div className={styles.footer}>
           <div className={styles.menu}>■</div>
@@ -41,4 +56,4 @@ const MyPageSetting = () =>{
     );
 }
 
-export default MyPageSetting
+export default ManagerPageSetting

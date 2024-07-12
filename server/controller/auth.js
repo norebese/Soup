@@ -15,26 +15,40 @@ export const CheckCompany = async (req, res)=>{
   // 사업자등록번호 유효성 검사
   const C_EID = req.query.num;
   const Company = await CompanyData.CompanyAPI(C_EID);
-
-  if(!Company.success) res.status(404).json({message:"data 없음 api 오류"})
+  console.log(Company.message)
   // 등록되지 않았거나 삭제된 경우: "국세청에 등록되지 않은 사업자등록번호입니다"
-  // res.status(200).json({message:"사업자 등록 여부 결과",data:Company})
+
+  if(!Company.success) return res.status(404).json({message:"data 없음 api 오류"})
   
   // 사업자등록번호 중복 검사
   const isCompany = await CompanyData.checkCompanyNum(C_EID);
-
-  if(!isCompany) res.status(500).json({message:"이미 가입한 기업"})
+  console.log(isCompany.message)
+  
+  if(!isCompany.success) return res.status(500).json({message:"이미 가입한 기업"});
+  
   res.status(200).json({message:"신규 등록 가능"})
 }
 
 // 기업이름으로 검색 
 export const searchCompany = async (req, res)=>{
   const C_Name = req.query.name;
-  const data = await CompanyData.searchCompany(C_Name)
+  const Company = await CompanyData.searchCompany(C_Name)
+  console.log(Company.message)
 
-  if(!data) res.stauts(404).json("해당 기업이 없습니다.");
+  if(!Company.success) return res.stauts(404).json("해당 기업이 없습니다.");
   
-  res.status(201).json({message:"기업 검색 성공", data})
+  res.status(201).json({message:"기업 검색 성공", data:Company.data})
+}
+
+// 기업 부서 리스트 추가
+export const addCompanyTeam = async (req, res)=>{
+  const {C_Code, Team} = req.query;
+
+  const newTeam = await CompanyData.addTeam({C_Code, Team})
+  console.log(newTeam.message)
+
+  if(!newTeam.success) return res.status(500).json({message:"부서 추가 오류"})
+  res.status(201).json({message:"부서 추가 성공"})
 }
 
 // 아이디 중복 검사
@@ -44,19 +58,15 @@ export const CheckuserId = async (req, res)=>{
   try{
     // 관리자 아이디 중복 검사
     const CheckManager = await UserData.searchByManagerId(userId)
+    console.log(CheckManager.message)
 
-    if(!CheckManager.success) {
-      console.log("관리자 아이디 중복")
-      res.status(500).json({message:"이미 존재하는 아이디"});
-    }
+    if(!CheckManager.success) return res.status(500).json({message:"이미 존재하는 아이디"});
 
     // 유저 아이디 중복 검사
     const CheckUser = await UserData.searchByUserId(userId)
+    console.log(CheckUser.message)
 
-    if(!CheckUser.success) {
-      console.log("유저 아이디 중복")
-      res.status(500).json({message:"이미 존재하는 아이디"})
-    }
+    if(!CheckUser.success) return res.status(500).json({message:"이미 존재하는 아이디"})
 
     res.status(200).json({message:"사용가능한 아이디", data:userId})
   }catch(err){
@@ -95,11 +105,12 @@ export const addAdmin = async (req, res) => {
         C_TEL, 
         C_EID
       }
-      const newCompany = await CompanyData.createCompany()
-      if (!newCompany.success) {
-        return res.status(502).json({message:"기업 등록 실패"});
-      }
-      // console.log(ComResult.data.C_Code)
+
+      const newCompany = await CompanyData.createCompany(Company)
+      console.log(newCompany.message)
+
+      if (!newCompany.success) return res.status(502).json({message:"기업 등록 실패"});
+
       // 관리자 등록
       const Manager = {
         C_Code:Company.data.C_Code,
@@ -110,9 +121,9 @@ export const addAdmin = async (req, res) => {
       };
 
       const newManager = await UserData.createManager(Manager)
-      if (!newManager.success) {
-        return res.status(500).json({ message: "관리자 등록 실패"});
-      }
+      console.log(newManager.message)
+
+      if (!newManager.success) return res.status(500).json({ message: "관리자 등록 실패"});
 
       // 기업의 관리지 리스트에 생성한 관리자 추가
       const manager = {
@@ -122,8 +133,10 @@ export const addAdmin = async (req, res) => {
       }
 
       const addManager = await CompanyData.addManager(manager)
+      console.log(addManager.message)
 
-      if(!addManager) res.status(500).json({ message:"관리자 등록 실패"})
+      if(!addManager) return res.status(500).json({ message:"관리자 등록 실패"});
+
       // HTML 폼을 포함한 페이지를 반환하여 자동으로 로그인 POST 요청을 보냅니다.
       res.status(201).send(`
         <html>
@@ -182,9 +195,9 @@ export const addUser = async (req, res)=>{
       }
 
       const newUser = await UserData.createUser(User)
-      if(!newUser.success){
-        return res.status(500).json({ message: "유저 등록 실패"});
-      }
+      console.log(newUser.message)
+
+      if(!newUser.success) return res.status(500).json({ message: "유저 등록 실패"});
 
       // 기업의 유저 리스트에 생성한 유저 추가
       const user = {
@@ -192,23 +205,26 @@ export const addUser = async (req, res)=>{
         U_Id:userId,
         U_Name:ManagerName
       }
-      const addUser = await CompanyData.addUser(user)
 
-      if(!addUser) res.status(500).json({ message:"관리자 등록 실패"})
-        // HTML 폼을 포함한 페이지를 반환하여 자동으로 로그인 POST 요청을 보냅니다.
-        res.status(201).send(`
-          <html>
-              <body>
-                  <form id="loginForm" action="/auth/signin" method="POST">
-                      <input type="hidden" name="username" value="${userId}" />
-                      <input type="hidden" name="password" value="${userPw}" />
-                  </form>
-                  <script>
-                      document.getElementById('loginForm').submit();
-                  </script>
-              </body>
-          </html>
-        `);
+      const addUser = await CompanyData.addUser(user)
+      console.log(addUser.message)
+
+      if(!addUser) return res.status(500).json({ message:"관리자 등록 실패"});
+
+      // HTML 폼을 포함한 페이지를 반환하여 자동으로 로그인 POST 요청을 보냅니다.
+      res.status(201).send(`
+        <html>
+            <body>
+                <form id="loginForm" action="/auth/signin" method="POST">
+                    <input type="hidden" name="username" value="${userId}" />
+                    <input type="hidden" name="password" value="${userPw}" />
+                </form>
+                <script>
+                    document.getElementById('loginForm').submit();
+                </script>
+            </body>
+        </html>
+      `);
     }catch(err){
       console.log(`유저 회원가입 오류: `, err);
       res.status(500).json({ message:"유저 회원가입 오류", error:err});
@@ -241,18 +257,19 @@ export const SiginIn = async (req, res)=>{
 
     try{
       const User = await UserData.getByuserId(data.userId)
-      if(!User.success){
-        console.log("해당 아이디 없음")
-        return res.status(401).json({message:"이메일, 패스워드를 확인하세요"})
-      }
-      const isValid = await bcrypt.compare(data.userPw, User.userPw);
+      console.log(User.message)
+
+      if(!User.success) return res.status(401).json({message:"이메일, 패스워드를 확인하세요"});
+
+      const isValid = await bcrypt.compare(data.userPw, User.data.userPw);
+
       if(!isValid){
         console.log("비밀번호 불일치", isValid)
         return res.status(401).json({message:"이메일, 패스워드를 확인하세요"})
       }
 
-      const jwtToken = createJwtToken( data.userId );
-      res.status(201).json({ token: jwtToken, name:User.Name });
+      const jwtToken = createJwtToken( User.data.userId );
+      res.status(201).json({ message:"로그인 성공", token: jwtToken, name:User.data.Name });
     }catch(err){
       console.log("로그인 오류: ", err)
       res.status(500).json({ message:"로그인 오류", error:err})

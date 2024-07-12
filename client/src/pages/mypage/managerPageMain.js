@@ -5,7 +5,7 @@ import styles from "./mypage.module.css";
 import { useNavigate } from 'react-router-dom';
 
 
-const MyPageManager= () =>{
+const MyPageManager = () =>{
 
     return (
         <div className={styles.body_container}>
@@ -28,21 +28,14 @@ const MyPageManager= () =>{
               <div className={styles.user_info}>
                 <div className={styles.user_icon}>
                 </div>
-                <div className={styles.user_fix}></div>
+                <div className={styles.user_fix}>유저 정보 수정</div>
               </div>
-              <DropdownButton id="dropdown-basic-button" title="">
-                <Dropdown.Item href="#/action_1">월별 선택</Dropdown.Item>
-                <Dropdown.Item href="#/action_2">월별 선택</Dropdown.Item>
-                <Dropdown.Item href="#/action_3">월별 선택</Dropdown.Item>
-                </DropdownButton>
-              <div className={styles.card_2area}>
-              이곳에 월 선택에 따른 그래프
+              <div className={styles.graph_area}>
+                스트레스 수준별 인원 비율
               </div>
-              
-              <div className={styles.card_2area}>
-              전체 기간 그래프
+              <div className={styles.graph_area}>
+                월별 직무스트레스 점수 변화 추이 그래프
               </div>
-
             </div>
           </div>
           <div className={styles.footer}>

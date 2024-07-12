@@ -42,7 +42,7 @@ export const searchCompany = async (C_Name) => {
     try{
         const company = await Company.findOne({ C_Name: { $regex: C_Name, $options: 'i' } })
                                     .sort({ C_Name: 1 })
-                                    .select('C_Code C_Name C_CEO C_EID');
+                                    .select('C_Code C_Name C_CEO C_EID TeamList');
         if(!company) return {success:false, message: "해당 기업 없음"}
         return {success:true, message: "기업 검색 성공", data: company}
     }catch(err){
@@ -64,6 +64,23 @@ export const createCompany = async (CompanyData) => {
     }
 }
 
+// 기업 부서 추가
+export const addTeam = async (TeamData)=>{
+    try{
+        const company = await Company.findOne({C_Code: TeamData.C_Cod})
+        if(!company){
+            return { success: false, error: "해당 기업 없믕"}
+        }
+        
+        company.TeamList.push(TeamData.Team);
+        const result = await company.save();
+        return { success:true, message: "부서 추가 성공", data: result}
+    }catch(err){
+        console.log("부서 추가 에러", err);
+        return { success: false, message: "부서 추가 에러", error: err };
+    }
+}
+
 // 관리자 추가
 export const addManager = async (Data) => {
     try {
@@ -76,7 +93,7 @@ export const addManager = async (Data) => {
 
         company.ManagerList.push(managerData);
         const result = await company.save();
-        return { success: true, data: result };
+        return { success: true, message: "관리차 추가 성공", data: result };
     } catch (err) {
         console.log("관리자 추가 에러", err);
         return { success: false, message: "관리자 추가 에러", error: err };
@@ -95,10 +112,10 @@ export const addUser = async (Data) => {
 
         company.UserList.push(UserData)
         const result = await company.save();
-        return { success: true, data: result}
+        return { success: true, message: "유저 추가 성공", data: result}
     }catch(err){
         console.log("유저 추가 에러: ", err);
-        return { success: false, message:"유저 추가 에러", error: err };
+        return { success: false, message: "유저 추가 에러", error: err };
     }
 }
 
