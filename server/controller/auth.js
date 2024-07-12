@@ -113,7 +113,7 @@ export const addAdmin = async (req, res) => {
 
       // 관리자 등록
       const Manager = {
-        C_Code:Company.data.C_Code,
+        C_Code:newCompany.data.C_Code,
         Name:ManagerName,
         Email:ManagerEmail,
         userId,
@@ -127,7 +127,7 @@ export const addAdmin = async (req, res) => {
 
       // 기업의 관리지 리스트에 생성한 관리자 추가
       const manager = {
-        C_Code:Company.data.C_Code,
+        C_Code:newCompany.data.C_Code,
         M_Id:userId,
         M_Name:ManagerName
       }
