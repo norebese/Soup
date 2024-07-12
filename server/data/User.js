@@ -34,7 +34,7 @@ export const createManager = async (ManagerData) => {
     try{
         const newManager = new Manager(ManagerData);
         const result = await newManager.save();
-        return { success: true, message:"관리자 등록 성공",data: result };
+        return { success: true, message:"관리자 등록 성공",data: result};
     }catch(err){
         console.log("관리자 등록 에러:", err);
         return { success: false, message: "관리자 등록 에러", error: err.message };
@@ -55,18 +55,28 @@ export const createUser = async (UserData) => {
 
 // 로그인
 
-// 아이디 기반 찾기
-export const getByuserId = async (userId) => {
+// 관리자 아이디 기반 찾기
+export const getByManagerId = async (id) => {
     try{
-        const Manager = await Manager.findOne({ userId })
-        if(!Manager){
-            const User = await User.findOne({ userId })
+        const manager = await Manager.findOne({ userId:id })
 
-            if(!User) return {success:false, message:"해당 아이디 없음"};
-            
-            return { success:true, message:"해당 아이디 있음(유저)", data:User}
-        }
-        return { success:true, message:"해당 아이디 있음", data:Manager}
+        if(!manager) return { success:false, message:"해당 아이디 없음"};
+
+        return { success:true, message:"해당 아이디 있음", data:manager, type:"M" }
+    }catch(err){
+        console.log('관리자 아이디 찾기 에러:', err);
+        return { success:false, message:"관리자 아이디 찾기 에러", error: err.message}
+    }
+}
+
+// 유저 아이디 가반 찾기
+export const getByuserId = async (id) => {
+    try{
+        const user = await User.findOne({ userId:id })
+
+        if(!user) return {success:false, message:"해당 아이디 없음"};
+        
+        return { success:true, message:"해당 아이디 있음(유저)", data:user, type:"U" }
     }catch(err){
         console.log('유저 아이디 찾기 에러:', err);
         return { success:false, message:"유저 아이디 찾기 에러", error: err.message}
