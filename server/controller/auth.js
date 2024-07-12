@@ -138,19 +138,7 @@ export const addAdmin = async (req, res) => {
       if(!addManager) return res.status(500).json({ message:"관리자 등록 실패"});
 
       // HTML 폼을 포함한 페이지를 반환하여 자동으로 로그인 POST 요청을 보냅니다.
-      res.status(201).send(`
-        <html>
-            <body>
-                <form id="loginForm" action="/auth/signin" method="POST">
-                    <input type="hidden" name="username" value="${userId}" />
-                    <input type="hidden" name="password" value="${userPw}" />
-                </form>
-                <script>
-                    document.getElementById('loginForm').submit();
-                </script>
-            </body>
-        </html>
-      `);
+      res.status(201).json({message:"관리자 회원가입 성공"});
     } catch (err) {
       console.log(`관리자 회원가입 오류: `, err);
       res.status(500).json({ message:"관리자 회원가입 오류", error:err});
@@ -212,19 +200,7 @@ export const addUser = async (req, res)=>{
       if(!addUser) return res.status(500).json({ message:"관리자 등록 실패"});
 
       // HTML 폼을 포함한 페이지를 반환하여 자동으로 로그인 POST 요청을 보냅니다.
-      res.status(201).send(`
-        <html>
-            <body>
-                <form id="loginForm" action="/auth/signin" method="POST">
-                    <input type="hidden" name="username" value="${userId}" />
-                    <input type="hidden" name="password" value="${userPw}" />
-                </form>
-                <script>
-                    document.getElementById('loginForm').submit();
-                </script>
-            </body>
-        </html>
-      `);
+      res.status(201).json({message:"유저 회원가입 성공"})
     }catch(err){
       console.log(`유저 회원가입 오류: `, err);
       res.status(500).json({ message:"유저 회원가입 오류", error:err});
