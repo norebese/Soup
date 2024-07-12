@@ -226,6 +226,7 @@ function createJwtToken(user) {
 export const SiginIn = async (req, res)=>{
   try{
     const data = req.body
+
     if(!data.userId || !data.userPw){
       return res.status(400).json({message:"필수 입력값 누락"});
     }

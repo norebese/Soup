@@ -129,6 +129,11 @@
     background-color: #EDEDED;
     color:#383838;
 }
+.input_style:disabled{
+    background-color: #7f4545 !important;
+    cursor: not-allowed;
+}
+
 .radio{
     width: 100%;
     display: flex;
@@ -170,4 +175,11 @@
     align-self: center;
     padding-left: 0;
     
+}
+
+.valid_msg{
+    color: green;
+    font-size: 0.8rem;
+    align-self: baseline;
+    padding-left: 8%;
 }
