@@ -42,9 +42,9 @@ export const searchCompany = async (req, res)=>{
 
 // 기업 부서 리스트 추가
 export const addCompanyTeam = async (req, res)=>{
-  const {C_Code, Team} = req.query;
+  const {code, team} = req.query;
 
-  const newTeam = await CompanyData.addTeam({C_Code, Team})
+  const newTeam = await CompanyData.addTeam({code, team})
   console.log(newTeam.message)
 
   if(!newTeam.success) return res.status(500).json({message:"부서 추가 오류"})
