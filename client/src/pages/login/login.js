@@ -2,7 +2,7 @@ import {icon} from '../../assets';
 import styles from "./login.module.css";
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext'; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () =>{
     const [formData, setFormData] = useState({
@@ -12,6 +12,7 @@ const Login = () =>{
     const [errors, setErrors] = useState({});
 
     const { login } = useAuth();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,7 +40,12 @@ const Login = () =>{
             setErrors(newErrors);
         } else{
             try {
-                await login(formData.id, formData.password);
+                const response = await login(formData.id, formData.password);
+                if(response === 'M'){
+                    navigate('/manager/main');
+                  }else if(response === 'U'){
+                    navigate('/user/main');
+                  }
             } catch (error) {
                 console.log(`(login.js) id: ${formData.id} password: ${formData.password}`);
                 console.error('Error submitting report:', error);

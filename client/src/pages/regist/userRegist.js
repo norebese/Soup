@@ -1,7 +1,8 @@
 import styles from './regist.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import { useAuth } from '../../context/AuthContext'; 
+import { useAuth } from '../../context/AuthContext';
+import {checkID} from '../../services/authService'
 
 function UserRegist() {
   const [formData, setFormData] = useState({
@@ -18,8 +19,9 @@ function UserRegist() {
   });
 
   const [errors, setErrors] = useState({});
+  const [idState, setid] = useState({ isValid: null, message: '' });
 
-  const { regist } = useAuth();
+  const { userRegist } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,6 +49,31 @@ function UserRegist() {
     return newErrors;
   };
 
+  const handleCheckID = async (e) => {
+    if (!formData.userId) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        userId: '아이디가 필요합니다',
+      }));
+      return;
+    }
+    try {
+      //중복검사
+      const result = await checkID(formData.userId)
+      if (result.state === 'valid'){
+        setFormData(prev => ({
+          ...prev,
+          validId: formData.userId,
+        }));
+        setid({ isValid: true, message: '유효힌 아이디 입니다' });
+      }else{
+        setid({ isValid: false, message: '중복된 아이디 입니다' });
+      }
+    } catch (error) {
+      console.error('아이디 중복 검사오류:', error);
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validate();
@@ -59,7 +86,7 @@ function UserRegist() {
       }
     }else {
       try {
-        await regist(formData);
+        await userRegist(formData);
       } catch (error) {
           console.log(formData);
           console.error('Error submitting report:', error);
@@ -92,9 +119,11 @@ function UserRegist() {
             <div className={styles.section}>
               <div className={styles.btn_container}>
                 <input className={styles.input_style} onChange={handleChange} name='userId' type="text" placeholder="아이디" id="userId" />
-                <button className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`} type="button">중복 확인</button>
+                <button onClick={handleCheckID} className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`} type="button">중복 확인</button>
               </div>
               {errors.userId && <span className={styles.error_msg}>{errors.userId}</span>}
+              {idState.isValid === false && <span className={styles.error_msg}>{idState.message}</span>}
+              {idState.isValid === true && <span className={styles.valid_msg}>{idState.message}</span>}
               <input onChange={handleChange} name='userpw' className={`${styles.password} ${styles.input_style}`} type="password" placeholder="비밀번호" id="userpw" />
               {errors.userpw && <span className={styles.error_msg}>{errors.userpw}</span>}
               <input onChange={handleChange} name='userpwConfirm' className={`${styles.password} ${styles.input_style}`} type="password" placeholder="비밀번호 확인" id="userpwConfirm" />
