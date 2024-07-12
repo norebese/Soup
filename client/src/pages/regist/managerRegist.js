@@ -49,7 +49,7 @@ function ManagerRegist() {
       if (!formData.CompanyTel) return { CompanyTel: '전화번호가 필요합니다' };
       if (!formData.ManagerEmail) return { ManagerEmail: '이메일이 필요합니다' };
       if (!formData.validEID) return { validEID: '사업자등록번호 검사가 필요합니다' };
-      if (!formData.validID) return { validEID: '아이디 중복 검사가 필요합니다' };
+      if (!formData.validId) return { validId: '아이디 중복 검사가 필요합니다' };
       return newErrors;
     };
 

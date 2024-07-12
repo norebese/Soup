@@ -5,10 +5,9 @@ const API_URL = 'http://localhost:8000';
 
 export const loginService = async (id, password) => {
   try {
-    const response = await axios.post(`${API_URL}/login`, { id, password });
+    const response = await axios.post(`${API_URL}/auth/sginin`, { userId: id, userPw: password });
     return response.data;
   } catch (error) {
-    console.log(`(authService.js) id: ${id} password: ${password}`)
     console.error('Login error:', error);
     throw error;
   }

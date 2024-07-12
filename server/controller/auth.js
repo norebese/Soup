@@ -226,14 +226,13 @@ function createJwtToken(user) {
 export const SiginIn = async (req, res)=>{
   try{
     const data = req.body
-
+    console.log(data)
     if(!data.userId || !data.userPw){
       return res.status(400).json({message:"필수 입력값 누락"});
     }
 
     try{
       const User = await UserData.getByuserId(data.userId)
-      console.log(User.message)
 
       if(!User.success) return res.status(401).json({message:"이메일, 패스워드를 확인하세요"});
 
