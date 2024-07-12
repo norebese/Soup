@@ -1,4 +1,5 @@
 import Manager from '../models/Manager.js';
+import Manager from '../models/Manager.js';
 import User from '../models/User.js';
 
 // ================================= 
@@ -58,11 +59,15 @@ export const createUser = async (UserData) => {
 // 아이디 기반 찾기
 export const getByuserId = async (userId) => {
     try{
-        const User = await User.findOne({ userId })
+        const Manager = await Manager.findOne({ userId })
+        if(!Manager){
+            const User = await User.findOne({ userId })
 
-        if(!User) return {success:false, message:"해당 아이디 없음"};
-
-        return { success:true, message:"해당 아이디 있음", data:User}
+            if(!User) return {success:false, message:"해당 아이디 없음"};
+            
+            return { success:true, message:"해당 아이디 있음(유저)", data:User}
+        }
+        return { success:true, message:"해당 아이디 있음", data:Manager}
     }catch(err){
         console.log('유저 아이디 찾기 에러:', err);
         return { success:false, message:"유저 아이디 찾기 에러", error: err.message}
