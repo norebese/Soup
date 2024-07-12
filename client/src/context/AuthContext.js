@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { loginService, userRegistService, managerRegistService } from '../services/authService';
 
 // AuthContext 생성
@@ -24,15 +24,23 @@ export const AuthProvider = ({ children }) => {
     } else {
         // 로컬 스토리지에 토큰이 없는 경우
         setIsLoggedIn(false);
-        setNickname('');
+        setUserName('');
     }
   }, []);
 
   const login = async (id, password) => {
     try {
       const response = await loginService(id, password);
-      setUser(response.user);
-      sessionStorage.setItem('TOKEN', response.token);
+      console.log(response)
+      if(response.message === '로그인 성공'){
+        console.log('ddd')
+        sessionStorage.setItem('TOKEN', response.token);
+        sessionStorage.setItem('NAME', response.name);
+        sessionStorage.setItem('TYPE', response.type);
+        return response.type
+      }else if(response === 'loginFailed'){
+        return 'loginFailed'
+      }
     } catch (error) {
       console.log(`(AuthContext.js) id: ${id} password: ${password}`)
       console.error('Login failed:', error);
@@ -65,11 +73,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setUser(null);
+    // setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, userRegist , managerRegist }}>
+    <AuthContext.Provider value={{ login, logout, userRegist , managerRegist }}>
       {children}
     </AuthContext.Provider>
   );

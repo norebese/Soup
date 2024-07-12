@@ -252,7 +252,7 @@ export const SiginIn = async (req, res)=>{
       }
 
       const jwtToken = createJwtToken( result.data.userId );
-      res.status(201).json({ message:"로그인 성공", token: jwtToken, name:result.data.Name, type:result.type});
+      res.status(200).json({ message:"로그인 성공", token: jwtToken, name:result.data.Name, type:result.type});
     }catch(err){
       console.log("로그인 오류: ", err)
       res.status(500).json({ message:"로그인 오류", error:err})
