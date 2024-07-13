@@ -1,5 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import SurveyContainer from '../../components/survey';
 import SurveyPieChart from '../../components/surveyPieChart';
 import SurveyBarChart from '../../components/surveyBarChart';
 
@@ -80,6 +82,15 @@ const SurveyResult = () => {
                         <SurveyBarChart data={barData} />
                     </div>
             </Card>
+            <div className="d-grid gap-2">
+                <Button variant="primary" size="lg">
+                    설문 상세 내역 펼쳐보기
+                </Button>
+            </div>
+            <div>
+                {/* <SurveyContainer/> */}
+            </div>
+            
         </div>
     );
 }
