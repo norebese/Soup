@@ -1,0 +1,32 @@
+.footer{
+    box-sizing:border-box;
+    padding: 0 20vw;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 10vw;
+    background-image: linear-gradient(153deg, #94b489 38%, #cad7a6 38%);
+}
+
+.header{
+    box-sizing: border-box;
+    display: flex;
+    justify-content:right;
+    align-items:center;
+    width: 100%;
+    height: 8vw;
+    background-color: #ffffff;
+    border-bottom: 1px solid #545454;
+}
+.head_container{
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.menu{width: 10vw;}
+.header img{
+    width: 8vw;
+}
