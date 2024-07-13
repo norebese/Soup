@@ -33,7 +33,6 @@ export const AuthProvider = ({ children }) => {
       const response = await loginService(id, password);
       console.log(response)
       if(response.message === '로그인 성공'){
-        console.log('ddd')
         sessionStorage.setItem('TOKEN', response.token);
         sessionStorage.setItem('NAME', response.name);
         sessionStorage.setItem('TYPE', response.type);
@@ -52,7 +51,14 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await userRegistService(formData);
       console.log(response)
-      // setUser(response.user);
+      if(response.message === '로그인 성공'){
+        sessionStorage.setItem('TOKEN', response.token);
+        sessionStorage.setItem('NAME', response.name);
+        sessionStorage.setItem('TYPE', response.type);
+        return response.type
+      }else if(response === 'loginFailed'){
+        return 'loginFailed'
+      }
     } catch (error) {
       console.log(formData)
       console.error('Registration failed:', error);

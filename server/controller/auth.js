@@ -181,7 +181,6 @@ export const addUser = async (req, res)=>{
         userId,
         userPw
       }
-
       const newUser = await UserData.createUser(User)
       console.log(newUser.message)
 
@@ -191,7 +190,7 @@ export const addUser = async (req, res)=>{
       const user = {
         C_Code,
         U_Id:userId,
-        U_Name:ManagerName
+        U_Name:Name
       }
 
       const addUser = await CompanyData.addUser(user)

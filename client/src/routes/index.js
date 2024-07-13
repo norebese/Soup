@@ -15,7 +15,8 @@ import ConfirmPage from '../pages/mypage/confirmPage';
 
 import SurveyPage from '../pages/survey/surveyPage';
 import ManagerSurveyList from '../pages/survey/managerSurveyList';
-
+import SurveyIntro from '../pages/survey/surveyIntro'
+import SurveyResult from '../pages/survey/surveyResult'
 
 
 const Router = () =>{
@@ -33,6 +34,8 @@ const Router = () =>{
           <Route path="/test/confirm" element={<ConfirmPage/>}/>
           <Route path="/test/surveylist/manager" element={<ManagerSurveyList/>}/>
           <Route path="/manager/main" element={<ManagerMain/>}/>
+          <Route path="/user/surveyintro" element={<SurveyIntro/>}/>
+          <Route path="/user/surveyResult" element={<SurveyResult/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

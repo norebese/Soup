@@ -32,7 +32,7 @@ useVirtualId(userSchema);
 // 비밀번호 해시화
 userSchema.pre('save', async function(next) {
   if (this.isModified('userPw') || this.isNew) {
-    const salt = await bcrypt.genSalt(config.bcrypt.saltRound);
+    const salt = await bcrypt.genSalt(parseInt(config.bcrypt.saltRound));
     this.userPw = await bcrypt.hash(this.userPw, salt);
   }
   next();
