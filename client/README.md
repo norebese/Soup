@@ -6,14 +6,19 @@
 3. yarn run start
 
 ## 브렌치 생성 규칙
-개발중인 기능-작성자
+개발중인 기능-작성자  
+```
 git checkout -b login-soo 
+```
 
 ## commit 생성 규칙
-개발중인 기능, 상태, 설명
+개발중인 기능, 상태, 설명  
+```
 git commit -m "login fix"
+```
 
 ## Directory
+```
 root/
 ├── node_modules/
 │   ├──...
@@ -39,7 +44,9 @@ root/
 ├── package.json
 ├── README.md
 └── yarn.lock
+```
 
+```
 회원관리
   로그인
     로그인 여부에 따라 일반회원, 관리자회원, 시스템 관리자 등으로 구분하여 서비스 제공
@@ -78,5 +85,5 @@ root/
       일정 관리(사내 일정, 직원 면담 일정 등)
   회원 수정
   회원 탈퇴
-  
+  ```
 

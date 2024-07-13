@@ -4,11 +4,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '../context/AuthContext';
 
 // 페이지
-import Home from '../pages/login/loginMain';
 import Login from '../pages/login/login';
 import ManagerRegist from '../pages/regist/managerRegist';
 import UserRegist from '../pages/regist/userRegist';
-import MyPageMain from '../pages/mypage/myPageMain';
+import UserMain from '../pages/mypage/myPageMain';
+import ManagerMain from '../pages/mypage/managerPageMain'
 import MyPageSetting from '../pages/mypage/myPageSetting';
 import ManagerPageSetting from '../pages/mypage/managerPageSetting';
 import ConfirmPage from '../pages/mypage/confirmPage';
@@ -28,7 +28,7 @@ const Router = () =>{
           <Route path="/" element={<Login/>}/>
           <Route path="/auth/signup" element={<UserRegist/>}/>
           <Route path="/auth/adminsighup" element={<ManagerRegist/>}/>
-          <Route path="/test/mypage" element={<MyPageMain/>}/>
+          <Route path="/user/main" element={<UserMain/>}/>
           <Route path="/test/survey" element={<SurveyPage/>}/>
           <Route path="/test/setting" element={<MyPageSetting/>}/>
           <Route path="/test/managersetting" element={<ManagerPageSetting/>}/>

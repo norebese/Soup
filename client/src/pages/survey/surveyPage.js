@@ -1,11 +1,31 @@
 import styles from "./survey.module.css";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import SurveyContainer from '../../components/survey';
+import { getSurveyData } from '../../services/surveyService';
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 const SurveyPage = () => {
+    const [surveyData, setSurveyData] = useState(null);
+
+    useEffect(() => {
+        const fetchSurveyData = async () => {
+            try {
+                const response = await getSurveyData();
+                console.log('Fetched Data:', response);
+                setSurveyData(response.data);
+            } catch (error) {
+                console.error('Error fetching survey data:', error);
+            }
+        };
+        fetchSurveyData();
+    }, []);
+
+    if (!surveyData) {
+        return <div>Loading...</div>;
+    }
     
     return (
         <>
@@ -64,6 +84,7 @@ const SurveyPage = () => {
                 </div>
             </div>
           </div>
+            <SurveyContainer data={surveyData}/>
         </div>
         <Footer/>
     </div>

@@ -82,5 +82,7 @@
 
 .error_msg{
     color: red;
-    padding-left: 50%;
+    font-size: 0.8rem;
+    align-self: baseline;
+    padding-left: 8%;
 }

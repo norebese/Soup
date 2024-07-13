@@ -3,29 +3,30 @@ import * as AuthController from '../controller/auth.js'
 
 const router = e.Router();
 
+
 // =================================
-// ========== 관리자 회원가입 ==========
+// ============== 기업 ==============
+// =================================
+// 기업에 부서 추가
+router.get('/addcompanyteam', AuthController.addCompanyTeam)
+
+// =================================
+// ============= 관리자 ==============
 // =================================
 
-// 사업자 등록 여부 체크
-router.get('/checkcompanynum', AuthController.CheckCompanyNum)
+// 사업자 등록 여부 체크 /checkcompany?num=
+router.get('/checkcompany', AuthController.CheckCompany)
 
-// 아이디(이메일) 중복체크
-router.get('/adminid', AuthController.CheckAdminId)
 
 // 관리자 회원가입
 router.post('/adminsignup', AuthController.addAdmin)
 
-
 // =================================
-// ========== 유저  회원가입 ==========
+// ============== 유저 ==============
 // =================================
 
-// 기업 코드 확인
-router.get('/checkcompanyid', AuthController.CheckCompanyId)
-
-// 아이디(이메일) 중복체크
-router.get('/userid', AuthController.CheckUserId)
+// 기업이름 검색 /searchcompany?name=
+router.get('/searchcompany', AuthController.searchCompany)
 
 // 유저 회원가입
 router.post('/usersignup', AuthController.addUser)
@@ -38,5 +39,11 @@ router.post('/usersignup', AuthController.addUser)
 // 로그인
 router.post('/sginin', AuthController.SiginIn)
 
+// ================================= 
+// ========  아이디 중복 체크  =========
+// =================================
+
+// 아이디 중복 체크 /checkid?userid=
+router.get('/checkid', AuthController.CheckuserId)
 
 export default router
