@@ -27,37 +27,6 @@
     width: 100%;
     height: 100vh;
 }
-.footer{
-    box-sizing:border-box;
-    padding: 0 20vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 10vw;
-    background-image: linear-gradient(153deg, #94b489 38%, #cad7a6 38%);
-}
-
-.header{
-    box-sizing: border-box;
-    display: flex;
-    justify-content:right;
-    align-items:center;
-    width: 100%;
-    height: 8vmax;
-    border-bottom: 1px solid #545454;
-}
-.head_container{
-    width: 58vw;
-    display: flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.menu{width: 10vw;}
-.header img{
-    width: 8vw;
-}
 /* 상단바 로고 정렬*/
 /* 배열을 위한 카드 div 영역 설정*/
 .card_container{
@@ -80,6 +49,18 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+    overflow-y: auto;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none;
+}
+
+.list_container{
+    box-sizing: border-box;
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content:baseline;
     overflow-y: auto;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none;
@@ -130,5 +111,3 @@
     width: 100%;
     border-bottom: 1px solid #94b489;
 }
-
-.accordion-button { width: 100%;}

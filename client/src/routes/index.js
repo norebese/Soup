@@ -14,8 +14,10 @@ import ManagerPageSetting from '../pages/mypage/managerPageSetting';
 import ConfirmPage from '../pages/mypage/confirmPage';
 
 import SurveyPage from '../pages/survey/surveyPage';
-import ManagerSurveyList from '../pages/survey/managerSurveyList';
+import ManagerSurveyMain from '../pages/survey/managerSurveyMain';
+import UserSurveyMain from '../pages/survey/userSurveyMain';
 
+import UserInfoEditPage from '../pages/edit/userInfoEditPage';
 
 
 const Router = () =>{
@@ -31,8 +33,9 @@ const Router = () =>{
           <Route path="/test/setting" element={<MyPageSetting/>}/>
           <Route path="/test/managersetting" element={<ManagerPageSetting/>}/>
           <Route path="/test/confirm" element={<ConfirmPage/>}/>
-          <Route path="/test/surveylist/manager" element={<ManagerSurveyList/>}/>
-          <Route path="/manager/main" element={<ManagerMain/>}/>
+          <Route path="/test/surveylist/manager" element={<ManagerSurveyMain/>}/>
+          <Route path="/test/surveylist/user" element={<UserSurveyMain/>}/>
+          <Route path="/test/edit/user" element={<UserInfoEditPage/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
