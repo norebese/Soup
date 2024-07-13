@@ -18,6 +18,9 @@ import ManagerSurveyMain from '../pages/survey/managerSurveyMain';
 import UserSurveyMain from '../pages/survey/userSurveyMain';
 
 import UserInfoEditPage from '../pages/edit/userInfoEditPage';
+import ManagerSurveyList from '../pages/survey/managerSurveyList';
+import SurveyIntro from '../pages/survey/surveyIntro'
+import SurveyResult from '../pages/survey/surveyResult'
 
 
 const Router = () =>{
@@ -36,6 +39,10 @@ const Router = () =>{
           <Route path="/test/surveylist/manager" element={<ManagerSurveyMain/>}/>
           <Route path="/test/surveylist/user" element={<UserSurveyMain/>}/>
           <Route path="/test/edit/user" element={<UserInfoEditPage/>}/>
+          <Route path="/test/surveylist/manager" element={<ManagerSurveyList/>}/>
+          <Route path="/manager/main" element={<ManagerMain/>}/>
+          <Route path="/user/surveyintro" element={<SurveyIntro/>}/>
+          <Route path="/user/surveyResult" element={<SurveyResult/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

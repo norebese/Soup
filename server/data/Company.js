@@ -40,7 +40,7 @@ export const checkCompanyNum = async (C_EID) => {
 // 기업이름으로 검색
 export const searchCompany = async (C_Name) => {
     try{
-        const company = await Company.findOne({ C_Name: { $regex: C_Name, $options: 'i' } })
+        const company = await Company.find({ C_Name: { $regex: C_Name, $options: 'i' } })
                                     .sort({ C_Name: 1 })
                                     .select('C_Code C_Name C_CEO C_EID TeamList');
         if(!company) return {success:false, message: "해당 기업 없음"}

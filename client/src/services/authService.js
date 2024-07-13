@@ -20,8 +20,25 @@ export const loginService = async (id, password) => {
 
 export const userRegistService = async (formData) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/signup`, { formData });
-    return response.data;
+    const response = await axios.post(`${API_URL}/auth/usersignup`, {
+      C_Code: formData.companyId,
+      Team: formData.companyTeam,
+      Position: formData.companyPosition,
+      Name: formData.userName,
+      gender: formData.Gender,
+      Birth: formData.Birth,
+      userId: formData.validId,
+      userPw: formData.userpwConfirm
+    });
+    if (response.status === 201){
+      const loginResponse = await loginService(formData.validId, formData.userpwConfirm);
+      console.log('authService loginResponse', loginResponse)
+      if (loginResponse.message === '로그인 성공'){
+        return loginResponse
+      }
+    }else{
+      console.log(response)
+    }
   } catch (error) {
     console.log(formData)
     console.error('Registration error:', error);
@@ -89,7 +106,23 @@ export const checkID = async (userid) => {
       return {state: 'invalid'}
     }
   } catch (error) {
-    console.error('error:', error);
+    return {state: 'invalid'}
+  }
+}
+
+export const searchCompany = async (name) =>{
+  try {
+    const response = await axios.get(`${API_URL}/auth/searchcompany`, {
+      params: { name }
+    });
+    console.log(response)
+    if(response.status === 201){
+      return {state: 'valid', companyData: response.data}
+    }else{
+      return {state: 'invalid'}
+    }
+  } catch (error) {
+    console.error('검색 오류:', error);
     throw error;
   }
 }

@@ -1,0 +1,79 @@
+.homepage {
+    display: block;
+    padding-bottom: 136px;
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  .wrapper.style1 {
+    text-align: center;
+  }
+  
+  .style2 {
+    font-size: 1.5em;
+  }
+  
+  .featureList .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .col {
+    width: 45%;
+    margin-bottom: 20px;
+  }
+  
+  .icon {
+    font-size: 1.5em;
+  }
+  
+  .browserHeader {
+    background-color: #595959;
+    border-radius: 5px;
+    color: #ffffff;
+    text-align: center;
+  }
+  
+  .button.style1.large {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .button.style1.large:hover {
+    background-color: #45a049;
+  }
+  
+  .bottom {
+    margin-top: 20px;
+  }
+  
+  .actionsSpecial {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .actionsSpecial li {
+    display: inline;
+    margin: 0 10px;
+  }
+  
+  .fixedBottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .tabContent {
+    padding: 20px;
+  }
+  

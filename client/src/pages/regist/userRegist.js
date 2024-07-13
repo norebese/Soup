@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import {checkID} from '../../services/authService'
+import CompanySearchModal from '../../components/CompanySearchModal'
 
 function UserRegist() {
   const [formData, setFormData] = useState({
@@ -20,6 +21,10 @@ function UserRegist() {
 
   const [errors, setErrors] = useState({});
   const [idState, setid] = useState({ isValid: null, message: '' });
+
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedCompany, setSelectedCompany] = useState('');
+  const [TeamList, setTeamList] = useState([]);
 
   const { userRegist } = useAuth();
 
@@ -47,6 +52,24 @@ function UserRegist() {
     if (!formData.Gender) return { Gender: '성별을 선택해주세요' };
     if (!formData.Birth) return { Birth: '생년월일을 선택해주세요' };
     return newErrors;
+  };
+
+  const handleOpenModal = () => {
+    setModalShow(true);
+  };
+
+  const handleClose = () => {
+    setModalShow(false);
+  };
+
+  const handleSelect = (company) => {
+    setSelectedCompany(company.C_Name);
+    setTeamList(company.TeamList);
+    setFormData(prevState => ({
+      ...prevState,
+      companyId: company.C_Code
+    }));
+    setModalShow(false);
   };
 
   const handleCheckID = async (e) => {
@@ -86,7 +109,13 @@ function UserRegist() {
       }
     }else {
       try {
-        await userRegist(formData);
+        const response = await userRegist(formData);
+        console.log('userRegist', response)
+        if(response === 'M'){
+          navigate('/manager/main');
+        }else if(response === 'U'){
+          navigate('/user/main');
+        }
       } catch (error) {
           console.log(formData);
           console.error('Error submitting report:', error);
@@ -109,9 +138,23 @@ function UserRegist() {
         <div className='null_container'/>
           <form onSubmit={handleSubmit} className={styles.form_style} name="regist">
             <div className={styles.section}>
-              <input className={styles.input_style} onChange={handleChange} name='companyId' type="text" placeholder="기업 코드" id="companyId" />
-              {errors.companyId && <span className={styles.error_msg}>{errors.companyId}</span>}
-              <input className={styles.input_style} onChange={handleChange} name='companyTeam' type="text" placeholder="부서" id="companyTeam" />
+              <div className={styles.btn_container}>
+                <input className={styles.input_style} type="text" readOnly placeholder="기업명" value={selectedCompany}/>
+                <button onClick={handleOpenModal} className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`} type="button">기업검색</button>
+              </div>
+              <CompanySearchModal
+                show={modalShow}
+                handleClose={handleClose}
+                handleSelect={handleSelect}
+              />
+              {TeamList.length > 0 && (
+                <select className={styles.input_style} onChange={handleChange} name='companyTeam' id="companyTeam">
+                  <option value="">부서를 선택하세요</option>
+                  {TeamList.map((team, index) => (
+                    <option key={index} value={team}>{team}</option>
+                  ))}
+                </select>
+              )}
               {errors.companyTeam && <span className={styles.error_msg}>{errors.companyTeam}</span>}
               <input className={styles.input_style} onChange={handleChange} name='companyPosition' type="text" placeholder="직급" id="companyPosition" />
               {errors.companyPosition && <span className={styles.error_msg}>{errors.companyPosition}</span>}
@@ -135,11 +178,11 @@ function UserRegist() {
               <div className={styles.radio}>
                 <div className={styles.radio_tag}>
                   남자
-                  <input onChange={handleChange} value="male" type="radio" name="Gender" id="Gender" />
+                  <input onChange={handleChange} value={true} type="radio" name="Gender" id="Gender" />
                 </div>
                 <div className={styles.radio_tag}>
                   여자
-                  <input onChange={handleChange} value="female" type="radio" name="Gender" id="Gender" />
+                  <input onChange={handleChange} value={false} type="radio" name="Gender" id="Gender" />
                 </div>
               </div>
               {errors.Gender && <span className={`${styles.error_msg} ${styles.error_msg2}`}>{errors.Gender}</span>}
