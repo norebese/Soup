@@ -1,4 +1,7 @@
-import styles from "./surveypage.module.css";
+import styles from "./userSurveyMain.module.css";
+import Card from 'react-bootstrap/Card';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import Button from 'react-bootstrap/Button';
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -14,14 +17,49 @@ const UserSurveyMain = () => {
                     <input className={styles.filter_input} placeholder="검색"/>
                 </div>
                 <div className={styles.card_container}>
-                    <div className={styles.survey_card}>
-                        <h2 className={styles.survey_name}>설문 이름</h2>
-                        <p className={styles.survey_date}>설문 진행일 /혹은 마감일</p>
-                        <p className={styles.survey_comment}>설문에 관한 간단한 설명</p>
-                        <div className={styles.progressbar}>진행도 바(ProgressBar)</div>
+                    <Card className={`mb-2 ${styles.survey_card}`}>
+                        <Card.Body>
+                            <Card.Title>
+                                설문 이름
+                            </Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">진행일/마감일</Card.Subtitle>
+                            <Card.Text>
+                            설문에 관한 간단한 설명
+                            </Card.Text>
+                            <ProgressBar now={40} label={`${40}%`} />
+                        </Card.Body>
+                    </Card>
+                    <Card className={`mb-2 ${styles.survey_card}`}>
+                        <Card.Body>
+                            <Card.Title>
+                                설문 이름
+                            </Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">진행일/마감일</Card.Subtitle>
+                            <Card.Text>
+                            설문에 관한 간단한 설명
+                            </Card.Text>
+                            <ProgressBar now={40} label={`${40}%`} />
+                        </Card.Body>
+                    </Card>
+                    <Card className={`mb-2 ${styles.survey_card}`}>
+                        <Card.Body>
+                            <Card.Title>
+                                설문 이름
+                            </Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">진행일/마감일</Card.Subtitle>
+                            <Card.Text>
+                            설문에 관한 간단한 설명
+                            </Card.Text>
+                            <ProgressBar now={40} label={`${40}%`} />
+                        </Card.Body>
+                    </Card>
+                    <div className={styles.card_more_btn}>
+                        <Button variant="primary" size="lg" id={styles.more_btn}>
+                            더보기
+                        </Button>
                     </div>
                 </div>
-            <button className={styles.load_button}>더보기</button>
+                
             </div>
             <Footer/>
         </div>
