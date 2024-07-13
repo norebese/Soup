@@ -1,7 +1,9 @@
-import {icon} from '../../assets';
 import styles from "./survey.module.css";
 import React, { useState } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const SurveyPage = () => {
     
@@ -9,16 +11,7 @@ const SurveyPage = () => {
         <>
         <div className={styles.body_container}>
         <div className={styles.div_container}>
-            <div className={styles.header}>
-                <div className={styles.head_container}>
-                  <div className={styles.logo}>
-                    <img src="" alt="logo" />
-                  </div>
-                  <div className={styles.alert}>
-                   ㅇ
-                </div>
-              </div>
-            </div>
+            <Header/>
           <div className={styles.survey_container}>
             <div className={styles.survey_info}>
                 <div className={styles.survey_text_area}>
@@ -72,11 +65,7 @@ const SurveyPage = () => {
             </div>
           </div>
         </div>
-        <div className={styles.footer}>
-            <div className={styles.menu}>■</div>
-            <div className={styles.menu}>■</div>
-            <div className={styles.menu}>■</div>
-        </div>
+        <Footer/>
     </div>
     </>
     

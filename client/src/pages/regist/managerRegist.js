@@ -36,7 +36,7 @@ function ManagerRegist() {
             <div className={styles.btn_container}>
                 <input className={styles.input_style} type="text" placeholder="기업코드" id="companyId"/>
                 <button className={`${styles.button_type_B} ${styles.check_btn} ${styles.btn_style}`}>조회</button>
-              </div>
+            </div>
               <input className={styles.input_style} type="text" placeholder="상호" id="companyName" />
               <input className={styles.input_style} type="text" placeholder="대표자명" id="CEO" />
               {/* <input className={styles.input_style} type="text" placeholder="도로명주소" id="addressLine1" />
