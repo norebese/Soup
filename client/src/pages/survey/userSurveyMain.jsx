@@ -2,12 +2,18 @@ import styles from "./userSurveyMain.module.css";
 import Card from 'react-bootstrap/Card';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 
 const UserSurveyMain = () => {
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        navigate('/user/surveyintro');
+    };
     
     return (
         <div className={styles.body_container}>
@@ -17,7 +23,7 @@ const UserSurveyMain = () => {
                     <input className={styles.filter_input} placeholder="검색"/>
                 </div>
                 <div className={styles.card_container}>
-                    <Card className={`mb-2 ${styles.survey_card}`}>
+                    <Card className={`mb-2 ${styles.survey_card}`} onClick={handleCardClick}>
                         <Card.Body>
                             <Card.Title>
                                 설문 이름

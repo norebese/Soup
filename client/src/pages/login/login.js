@@ -10,6 +10,7 @@ const Login = () =>{
         password: ''
     });
     const [errors, setErrors] = useState({});
+    const [loginState, setLoginState] = useState({ isValid: null, message: '' });
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -41,14 +42,16 @@ const Login = () =>{
         } else{
             try {
                 const response = await login(formData.id, formData.password);
+                console.log(response)
                 if(response === 'M'){
                     navigate('/manager/main');
                   }else if(response === 'U'){
                     navigate('/user/main');
+                  }else if(response === 'loginFailed'){
+                    setLoginState({ isValid: false, message: '아이디 비밀번호를 확인하세요' })
                   }
             } catch (error) {
-                console.log(`(login.js) id: ${formData.id} password: ${formData.password}`);
-                console.error('Error submitting report:', error);
+                console.error('Error login:', error);
             }
         }
     };
@@ -66,6 +69,7 @@ const Login = () =>{
                 {errors.id && <span className={styles.error_msg}>{errors.id}</span>}
                 <input onChange={handleChange} autoComplete="current-password" name='password' className={`${styles.password} ${styles.input_style}`} type="password" placeholder="비밀번호" id={styles.userpw}/>
                 {errors.password && <span className={styles.error_msg}>{errors.password}</span>}
+                {loginState.isValid === false && <span className={styles.error_msg}>{loginState.message}</span>}
                 <button className={`${styles.button_type_B} ${styles.login} ${styles.btn_style}`}>로그인</button>
                 <Link to={'/auth/signup'} className={`${styles.button_type_A} ${styles.regist} ${styles.btn_style}`}>일반 회원 가입</Link>
                 <Link to={'/auth/adminsighup'} className={`${styles.button_type_A} ${styles.regist} ${styles.btn_style}`}>관리자 회원 가입</Link>

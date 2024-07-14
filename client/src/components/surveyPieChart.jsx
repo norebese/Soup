@@ -112,14 +112,6 @@ const MyResponsivePie = ({ data }) => (
                 id: 'lines'
             }
         ]}
-        motionConfig={{
-            mass: 1,
-            tension: 170,
-            friction: 26,
-            clamp: false,
-            precision: 0.01,
-            velocity: 0
-        }}
         legends={[
             {
                 anchor: 'top-right',

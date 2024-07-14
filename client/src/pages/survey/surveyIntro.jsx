@@ -3,17 +3,24 @@ import styles from './surveyIntro.module.css';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
+
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const SurveyIntro = () => {
   const [key, setKey] = useState('home');
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add your form submission logic here
+    navigate('/user/survey');
   };
 
   return (
     <div className={styles.homepage}>
+      <Header/>
       <section id="intro" className={`${styles.wrapper} ${styles.style1}`}>
         <p className={styles.style2}><i className="fas fa-bullhorn"></i> 설문소개 및 유의사항</p>
       </section>
@@ -61,13 +68,15 @@ const SurveyIntro = () => {
             </div>
           </Tab>
         </Tabs>
+        <div className={`d-grid gap-2 ${styles.fixedBottom}`}>
+          <Button variant="primary" size="lg" onClick={handleSubmit}>
+            설문 시작
+          </Button>
+        </div>
       </section>
 
-      <div className={`d-grid gap-2 ${styles.fixedBottom}`}>
-        <Button variant="primary" size="lg" onClick={handleSubmit}>
-          설문 시작
-        </Button>
-      </div>
+      
+      <Footer/>
     </div>
   );
 };
