@@ -17,7 +17,7 @@ const MyResponsiveBarMain = ({ data /* see data tab */ }) => (
             'donut'
         ]}
         indexBy="country"
-        margin={{ top: 30, right: 10, bottom: 30, left: 10 }}
+        margin={{ top: 10, right: 10, bottom: 80, left: 10 }}
         padding={0.3}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
@@ -75,6 +75,7 @@ const MyResponsiveBarMain = ({ data /* see data tab */ }) => (
         }}
         axisLeft={null}
         enableGridY={false}
+        enableLabel={false}
         labelSkipWidth={12}
         labelSkipHeight={12}
         labelTextColor={{
@@ -86,7 +87,21 @@ const MyResponsiveBarMain = ({ data /* see data tab */ }) => (
                 ]
             ]
         }}
-        legends={[]}
+        legends={[
+            {
+                dataFrom: 'keys',
+                anchor: 'bottom',
+                direction: 'row',
+                justify: false,
+                translateX: 50,
+                translateY: 70,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemsSpacing: 2,
+                symbolSize: 20,
+                itemDirection: 'left-to-right'
+            }
+        ]}
         motionConfig="slow"
         role="application"
         ariaLabel="Nivo bar chart demo"

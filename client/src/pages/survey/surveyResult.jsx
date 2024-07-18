@@ -8,21 +8,21 @@ import SurveyBarChart from '../../components/surveyBarChart';
 const SurveyResult = () => {
     const pieData = [
         {
-            "id": "make",
-            "label": "make",
-            "value": 571,
+            "id": "고위험",
+            "label": "고위험",
+            "value": 2,
             "color": "hsl(126, 70%, 50%)"
         },
         {
-            "id": "scala",
-            "label": "scala",
-            "value": 76,
+            "id": "경계",
+            "label": "경계",
+            "value": 5,
             "color": "hsl(216, 70%, 50%)"
         },
         {
-            "id": "java",
-            "label": "java",
-            "value": 391,
+            "id": "정상",
+            "label": "정상",
+            "value": 1,
             "color": "hsl(301, 70%, 50%)"
         }
     ];
